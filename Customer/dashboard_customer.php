@@ -51,7 +51,6 @@
             const slider = document.querySelector('.slider');
             const slides = document.querySelectorAll('.slide');
             const navBtns = document.querySelectorAll('.nav-btn');
-            const arrows = document.querySelectorAll('.arrow');
             
             let currentSlide = 0;
             const slideCount = slides.length;
