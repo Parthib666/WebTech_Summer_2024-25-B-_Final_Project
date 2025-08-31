@@ -1,6 +1,7 @@
 /* Navbar Styles */
 .navbar {
-    background-color: #000000ea;
+    background-color: #0d0e10;
+    background-image: linear-gradient(90deg, #0d0e10 0%, #323a3c 52.5%, #0d0e10 100%);
     padding: 0 2rem;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
