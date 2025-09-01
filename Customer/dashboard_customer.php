@@ -17,22 +17,19 @@
             <div class="slide">
                 <img src="../Images/user-dash-slider-1.jpg" alt="">
                 <div class="slide-content">
-                    <h3>Beautiful Mountain Landscape</h3>
-                    <p>Experience the breathtaking views of majestic mountains and serene valleys.</p>
+                    <p>Indulge in our sizzling beef stir fry served over a bed of fluffy steamed rice, seasoned to perfection with vibrant peppers and a savory sauce that melts in your mouth.</p>
                 </div>
             </div>
             <div class="slide">
                 <img src="../Images/user-dash-slider-2.jpg" alt="">
                 <div class="slide-content">
-                    <h3>Tropical Beach Paradise</h3>
-                    <p>Relax on pristine sandy beaches with crystal clear waters and stunning sunsets.</p>
+                    <p>Experience the comforting warmth of our rich, slow-simmered soup made with fresh vegetables, hearty spices, and a touch of love in every spoonful.</p>
                 </div>
             </div>
             <div class="slide">
                 <img src="../Images/user-dash-slider-3.jpg" alt="">
                 <div class="slide-content">
-                    <h3>Enchanted Forest</h3>
-                    <p>Explore lush green forests with diverse wildlife and peaceful walking trails.</p>
+                    <p>Kickstart your day with our signature skillet of farm-fresh eggs, colorful bell peppers, and garden-fresh herbs, perfectly cooked to awaken your taste buds.</p>
                 </div>
             </div>
             
@@ -84,7 +81,7 @@
             
             // Set up auto-sliding
             function startAutoSlide() {
-                autoSlideInterval = setInterval(nextSlide, 5000);
+                autoSlideInterval = setInterval(nextSlide, 3000);
             }
             
             // Stop auto-sliding

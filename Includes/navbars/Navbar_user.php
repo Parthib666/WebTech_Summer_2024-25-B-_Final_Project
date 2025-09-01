@@ -4,19 +4,6 @@
 // Define the current page for active state highlighting
 $currentPage = basename($_SERVER['PHP_SELF']);
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    
-    <link rel="stylesheet" href="navbar.css">
-</head>
-
-<body>
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
@@ -36,6 +23,3 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             </div>
         </div>
     </nav>
-</body>
-
-</html>
