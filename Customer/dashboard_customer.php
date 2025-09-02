@@ -16,20 +16,20 @@
         <div class="slider">
             <div class="slide">
                 <img src="../Images/user-dash-slider-1.jpg" alt="">
-                <div class="slide-content">
-                    <p>Indulge in our sizzling beef stir fry served over a bed of fluffy steamed rice, seasoned to perfection with vibrant peppers and a savory sauce that melts in your mouth.</p>
+                <div class="slide-content" id="slide-content-1">
+                    <p>Kickstart your day with our signature skillet of farm-fresh eggs, colorful bell peppers, and garden-fresh herbs, perfectly cooked to awaken your taste buds.</p>
                 </div>
             </div>
             <div class="slide">
                 <img src="../Images/user-dash-slider-2.jpg" alt="">
-                <div class="slide-content">
-                    <p>Experience the comforting warmth of our rich, slow-simmered soup made with fresh vegetables, hearty spices, and a touch of love in every spoonful.</p>
+                <div class="slide-content" id="slide-content-2">
+                <p>Indulge in our sizzling beef stir fry served over a bed of fluffy steamed rice, seasoned to perfection with vibrant peppers and a savory sauce that melts in your mouth.</p>  
                 </div>
             </div>
             <div class="slide">
                 <img src="../Images/user-dash-slider-3.jpg" alt="">
-                <div class="slide-content">
-                    <p>Kickstart your day with our signature skillet of farm-fresh eggs, colorful bell peppers, and garden-fresh herbs, perfectly cooked to awaken your taste buds.</p>
+                <div class="slide-content" id="slide-content-3">
+                <p>Experience the comforting warmth of our rich, slow-simmered soup made with fresh vegetables, hearty spices, and a touch of love in every spoonful.</p>
                 </div>
             </div>
             

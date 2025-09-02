@@ -1,10 +1,11 @@
 header {
     background-color: rgba(0, 10, 53, 0.61);
     margin: 20px auto;
+    max-width: 100%;
 }
  .slider-container {
             max-width: 100%;
-            width: 100%;
+            width: 100vw;
             overflow: hidden;
             box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
             position: relative;
@@ -32,22 +33,41 @@ header {
         
         .slide-content {
             position: absolute;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.6);
-            color: white;
-            width: 100%;
-            padding: 20px;
+            
+            color: rgb(224, 161, 79);
+            width: 30vw;
+            padding: 5%;
             transition: all 0.5s ease;
         }
-        
+        #slide-content-1 {
+            top: 50%;
+            left: 10%;
+            transform: translateY(-50%);
+        }
+        #slide-content-2 {
+            top: 50%;
+            left: 60%;
+            transform: translateY(-50%);
+        }
+        #slide-content-3 {
+            top: 50%;
+            left: 10%;
+            transform: translateY(-50%);
+        }
+
         .slide-content h3 {
             font-size: 24px;
             margin-bottom: 10px;
         }
         
         .slide-content p {
-            font-size: 16px;
+            font-size: 1.5rem;
             line-height: 1.5;
+            font-weight: bold;
+            font-family: cursive;
+            font-style: italic;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+
         }
         
         .navigation {
