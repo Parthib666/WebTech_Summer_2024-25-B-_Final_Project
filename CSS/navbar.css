@@ -1,7 +1,8 @@
 /* Navbar Styles */
 .navbar {
-    background-color: #0d0e10;
-    background-image: linear-gradient(90deg, #0d0e10 0%, #323a3c 52.5%, #0d0e10 100%);
+    
+    
+    background-image: linear-gradient(90deg, #020f00 0%, #012703 52.5%, #020f00 100%);
     padding: 0 2rem;
     
 }

@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="../CSS/navbar.css">
     <link rel="stylesheet" href="../CSS/dashboard_user.css">
+    <link rel="stylesheet" href="../CSS/navbar.css">
     <script src="https://kit.fontawesome.com/31caec7e2c.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -110,6 +110,7 @@
     </script>
     </header>
     <main>
+
         <div class="dashboard-content-container">
             <div class="dashboard-item">
                 <div class="dashboard-item-image"> <img src="../Images/Cooking-user-dash-item-1.jpg" alt="Dish Image"></div>
@@ -134,9 +135,55 @@ We don't just serve dinner; we craft an experience for the senses, hoping you le
                 </div>
                 <div class="dashboard-item-image"> <img src="../Images/Vision-user-dash.jpg" alt="Dish Image"></div>
             </div>
-            <div class="dashboard-item">
-                <center><h3>Support</h3></center>
-                <p>Get help and support for your orders.</p>
+        </div>
+
+        <div class="gallery">
+            <center><h2>Gallery</h2></center>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <div class="gallery-image">
+                        <img src="../Images/Gallery-interior-1.jpg" alt="Gallery Image 1">
+                    </div>
+                    <div class="gallery-image">
+                        <img src="../Images/Gallery-food-1.jpg" alt="Gallery Image 1">
+                    </div>
+                    <div class="gallery-image">
+                        <img src="../Images/Gallery-interior-2.jpg" alt="Gallery Image 1">
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image">
+                        <img src="../Images/Gallery-food-2.jpg" alt="Gallery Image 2">
+                    </div>
+                    <div class="gallery-image">
+                        <img src="../Images/Gallery-interior-3.jpg" alt="Gallery Image 1">
+                    </div>
+                    <div class="gallery-image">
+                        <img src="../Images/Gallery-food-3.jpg" alt="Gallery Image 1">
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image">
+                    <img src="../Images/Gallery-interior-4.jpg" alt="Gallery Image 1">
+                    </div>
+                    <div class="gallery-image">
+                        <img src="../Images/Gallery-food-4.jpg" alt="Gallery Image 1">
+                    </div>
+                    <div class="gallery-image">
+                        <img src="../Images/Gallery-interior-5.jpg" alt="Gallery Image 1">
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image">
+                        <img src="../Images/Gallery-food-5.jpg" alt="Gallery Image 2">
+                    </div>
+                    <div class="gallery-image">
+                        <img src="../Images/Gallery-interior-6.jpg" alt="Gallery Image 1">
+                    </div>
+                    <div class="gallery-image">
+                        <img src="../Images/Gallery-food-6.jpg" alt="Gallery Image 1">
+                    </div>
+                </div>
             </div>
         </div>
     </main>
