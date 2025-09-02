@@ -109,5 +109,36 @@
         });
     </script>
     </header>
+    <main>
+        <div class="dashboard-content-container">
+            <div class="dashboard-item">
+                <div class="dashboard-item-image"> <img src="../Images/Cooking-user-dash-item-1.jpg" alt="Dish Image"></div>
+                <div class="dashboard-item-content">
+                    <center><h3>Experience The Modern Culinary Journey</h3></center>
+                    <p>At Bennie, we take pride in offering  modern European and Mediterranean-inspired dining experience. Our menu features a variety of carefully crafted dishes, from fresh seafood like grilled octopus, calamari and king prawns to tender meats, including our perfectly cooked ribeye steak. Vegetarian and vegan guests can enjoy vibrant, seasonal plates such as aubergine or broccoli tempura and roasted vegetable platters. Every dish is made with the freshest ingredients and showcases the bold, natural flavours.</p>
+                    <center><button>View Menu</button></center>
+                </div>
+            </div>
+            <div class="dashboard-item">
+                
+                <div class="dashboard-item-content">
+                    <center><h3>Vision</h3></center>
+                    <p>To be a sanctuary where the art of nourishment meets the poetry of connection.
+
+We believe in the simple magic of a shared meal—where earth's honest ingredients are transformed into vibrant cuisine that tells a story of season and place.
+
+Our space is designed as a haven of warmth and golden light, a modern hearth for making memories. Here, every guest is welcomed as family, and every moment is slowed to the pace of genuine conversation.
+
+We don't just serve dinner; we craft an experience for the senses, hoping you leave not just satisfied, but truly restored.</p>
+                    <center><button>Book a Table</button></center>
+                </div>
+                <div class="dashboard-item-image"> <img src="../Images/Vision-user-dash.jpg" alt="Dish Image"></div>
+            </div>
+            <div class="dashboard-item">
+                <center><h3>Support</h3></center>
+                <p>Get help and support for your orders.</p>
+            </div>
+        </div>
+    </main>
 </body>
 </html>
