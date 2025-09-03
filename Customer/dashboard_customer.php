@@ -6,6 +6,7 @@
     <title>Dashboard</title>
     <link rel="stylesheet" href="../CSS/dashboard_user.css">
     <link rel="stylesheet" href="../CSS/navbar.css">
+    <link rel="stylesheet" href="../CSS/footer_user.css">
     <script src="https://kit.fontawesome.com/31caec7e2c.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -15,19 +16,19 @@
     <div class="slider-container">
         <div class="slider">
             <div class="slide">
-                <img src="../Images/user-dash-slider-1.jpg" alt="">
+                <img src="../Images/user-dash-slider-1.webp" alt="">
                 <div class="slide-content" id="slide-content-1">
                     <p>Kickstart your day with our signature skillet of farm-fresh eggs, colorful bell peppers, and garden-fresh herbs, perfectly cooked to awaken your taste buds.</p>
                 </div>
             </div>
             <div class="slide">
-                <img src="../Images/user-dash-slider-2.jpg" alt="">
+                <img src="../Images/user-dash-slider-2.webp" alt="">
                 <div class="slide-content" id="slide-content-2">
                 <p>Indulge in our sizzling beef stir fry served over a bed of fluffy steamed rice, seasoned to perfection with vibrant peppers and a savory sauce that melts in your mouth.</p>  
                 </div>
             </div>
             <div class="slide">
-                <img src="../Images/user-dash-slider-3.jpg" alt="">
+                <img src="../Images/user-dash-slider-3.webp" alt="">
                 <div class="slide-content" id="slide-content-3">
                 <p>Experience the comforting warmth of our rich, slow-simmered soup made with fresh vegetables, hearty spices, and a touch of love in every spoonful.</p>
                 </div>
@@ -113,7 +114,7 @@
 
         <div class="dashboard-content-container">
             <div class="dashboard-item">
-                <div class="dashboard-item-image"> <img src="../Images/Cooking-user-dash-item-1.jpg" alt="Dish Image"></div>
+                <div class="dashboard-item-image"> <img src="../Images/Cooking-user-dash-item-1.webp" alt="Dish Image"></div>
                 <div class="dashboard-item-content">
                     <center><h3>Experience The Modern Culinary Journey</h3></center>
                     <p>At Bennie, we take pride in offering  modern European and Mediterranean-inspired dining experience. Our menu features a variety of carefully crafted dishes, from fresh seafood like grilled octopus, calamari and king prawns to tender meats, including our perfectly cooked ribeye steak. Vegetarian and vegan guests can enjoy vibrant, seasonal plates such as aubergine or broccoli tempura and roasted vegetable platters. Every dish is made with the freshest ingredients and showcases the bold, natural flavours.</p>
@@ -133,7 +134,7 @@ Our space is designed as a haven of warmth and golden light, a modern hearth for
 We don't just serve dinner; we craft an experience for the senses, hoping you leave not just satisfied, but truly restored.</p>
                     <center><button>Book a Table</button></center>
                 </div>
-                <div class="dashboard-item-image"> <img src="../Images/Vision-user-dash.jpg" alt="Dish Image"></div>
+                <div class="dashboard-item-image"> <img src="../Images/Vision-user-dash.webp" alt="Dish Image"></div>
             </div>
         </div>
 
@@ -142,50 +143,51 @@ We don't just serve dinner; we craft an experience for the senses, hoping you le
             <div class="gallery-grid">
                 <div class="gallery-item">
                     <div class="gallery-image">
-                        <img src="../Images/Gallery-interior-1.jpg" alt="Gallery Image 1">
+                        <img src="../Images/Gallery-interior-1.webp" alt="Gallery Image 1">
                     </div>
                     <div class="gallery-image">
-                        <img src="../Images/Gallery-food-1.jpg" alt="Gallery Image 1">
+                        <img src="../Images/Gallery-food-1.webp" alt="Gallery Image 1">
                     </div>
                     <div class="gallery-image">
-                        <img src="../Images/Gallery-interior-2.jpg" alt="Gallery Image 1">
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <div class="gallery-image">
-                        <img src="../Images/Gallery-food-2.jpg" alt="Gallery Image 2">
-                    </div>
-                    <div class="gallery-image">
-                        <img src="../Images/Gallery-interior-3.jpg" alt="Gallery Image 1">
-                    </div>
-                    <div class="gallery-image">
-                        <img src="../Images/Gallery-food-3.jpg" alt="Gallery Image 1">
+                        <img src="../Images/Gallery-interior-2.webp" alt="Gallery Image 1">
                     </div>
                 </div>
                 <div class="gallery-item">
                     <div class="gallery-image">
-                    <img src="../Images/Gallery-interior-4.jpg" alt="Gallery Image 1">
+                        <img src="../Images/Gallery-food-2.webp" alt="Gallery Image 2">
                     </div>
                     <div class="gallery-image">
-                        <img src="../Images/Gallery-food-4.jpg" alt="Gallery Image 1">
+                        <img src="../Images/Gallery-interior-3.webp" alt="Gallery Image 1">
                     </div>
                     <div class="gallery-image">
-                        <img src="../Images/Gallery-interior-5.jpg" alt="Gallery Image 1">
+                        <img src="../Images/Gallery-food-3.webp" alt="Gallery Image 1">
                     </div>
                 </div>
                 <div class="gallery-item">
                     <div class="gallery-image">
-                        <img src="../Images/Gallery-food-5.jpg" alt="Gallery Image 2">
+                    <img src="../Images/Gallery-interior-4.webp" alt="Gallery Image 1">
                     </div>
                     <div class="gallery-image">
-                        <img src="../Images/Gallery-interior-6.jpg" alt="Gallery Image 1">
+                        <img src="../Images/Gallery-food-4.webp" alt="Gallery Image 1">
                     </div>
                     <div class="gallery-image">
-                        <img src="../Images/Gallery-food-6.jpg" alt="Gallery Image 1">
+                        <img src="../Images/Gallery-interior-5.webp" alt="Gallery Image 1">
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image">
+                        <img src="../Images/Gallery-food-5.webp" alt="Gallery Image 2">
+                    </div>
+                    <div class="gallery-image">
+                        <img src="../Images/Gallery-interior-6.webp" alt="Gallery Image 1">
+                    </div>
+                    <div class="gallery-image">
+                        <img src="../Images/Gallery-food-6.webp" alt="Gallery Image 1">
                     </div>
                 </div>
             </div>
         </div>
     </main>
+    <?php include '../Includes/footers/Footer_user.php'; ?>
 </body>
 </html>

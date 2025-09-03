@@ -1,10 +1,9 @@
 /* Navbar Styles */
 .navbar {
-    
-    
-    background-image: linear-gradient(90deg, #020f00 0%, #012703 52.5%, #020f00 100%);
+    background-image: linear-gradient(90deg, #090c14 0%, #0d111d 52.5%, #090c14 100%);
     padding: 0 2rem;
-    
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
 }
 
 .nav-container {
@@ -30,9 +29,20 @@
     font-weight: 600;
     display: flex;
     list-style: none;
-    margin: 0;
-    padding: 0;
-    gap: 2rem;
+    gap: 1rem;
+}
+
+.nav-menu li {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+}
+
+.nav-menu li:hover{
+    background-color: #192033;
+    cursor: pointer;
+    transform: scale(1.03);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.308);
+    transition: background-color 0.3s;
 }
 
 .nav-user-options {

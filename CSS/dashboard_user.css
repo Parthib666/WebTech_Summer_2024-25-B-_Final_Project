@@ -1,19 +1,17 @@
 body {
-    background-color: #041801;
-    background-image: linear-gradient(90deg, #020f00 0%, #012703 52.5%, #020f00 100%);
+    max-width: 100%;
 }
 
 header {
     margin: 20px auto;
     max-width: 100%;
-
 }
 
 .slider-container {
     max-width: 90%;
     width: 100vw;
     overflow: hidden;
-    box-shadow: 5px 10px 20px rgba(24, 75, 1, 0.815);
+    box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.562);
     position: relative;
     margin: 20px auto;
     border-radius: 10px;
@@ -132,6 +130,7 @@ header {
     height: 100%;
     object-fit: cover;
     border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.247);
 }
 
 .dashboard-item-content {
@@ -145,12 +144,14 @@ header {
     text-align: center;
     color: rgb(224, 161, 79);
     font-family: cursive;
+    font-style: italic;
     font-size: 1.5rem;
+    
 }
 
 .dashboard-item-content p {
     text-align: center;
-    color: #fff;
+    color: #020e00;
     font-size: 1.2rem;
     font-weight: 200;
 }
@@ -167,6 +168,7 @@ header {
     cursor: pointer;
     transition: all 0.3s ease;
     margin: 20px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.247);
 }
 
 .dashboard-item-content button:hover {
@@ -209,6 +211,7 @@ header {
 
 .gallery-image:hover {
     transform: scale(1.03);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.308);
 }
 
 .gallery-image img {
@@ -217,3 +220,6 @@ header {
     object-fit: cover;
     display: block;
 }
+
+
+        
