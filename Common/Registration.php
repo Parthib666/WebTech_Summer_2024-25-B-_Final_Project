@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- <link rel="stylesheet" href="style.css"> -->
+  <title>Registration</title>
+</head>
+<body>
+  <h1>Registration Page</h1>
+</body>
+</html>
