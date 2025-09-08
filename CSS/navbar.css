@@ -4,9 +4,13 @@
     padding: 0 2rem;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
     max-width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .nav-container {
+    position: inherit;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -35,6 +39,7 @@
 .nav-menu li {
     padding: 0.5rem 1rem;
     border-radius: 4px;
+    color: #ecf0f1;
 }
 
 .nav-menu li:hover{

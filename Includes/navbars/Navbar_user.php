@@ -10,10 +10,10 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                 <a href="home.php">DineSmart</a>
             </div>
             <ul class="nav-menu">
-                <li>Menu</li>
-                <li>Special Offers</li>
-                <li>Contact Us</li>
-                <li>Book Table</li>
+                <li><a href="../Customer/menu_customer.php" style="color: inherit; text-decoration: none;">Menu</a></li>
+                <li><a href="../Commons/special_offers.php" style="color: inherit; text-decoration: none;">Special Offers</a></li>
+                <li><a href="../Customer/contacts.php" style="color: inherit; text-decoration: none;">Contact Us</a></li>
+                <li><a href="../Customer/booking.php" style="color: inherit; text-decoration: none;">Book Table</a></li>
             </ul>
             <div class="nav-user-options">
                 <i class="fa-solid fa-user"></i>
