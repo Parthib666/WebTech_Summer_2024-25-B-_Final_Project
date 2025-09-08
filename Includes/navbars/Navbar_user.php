@@ -17,7 +17,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             </ul>
             <div class="nav-user-options">
                 <i class="fa-solid fa-user"></i>
-                <i class="fa-solid fa-cart-plus"></i>
+                <a href="../Customer/view_cart.php" style="color: inherit; text-decoration: none;"><i class="fa-solid fa-cart-plus"></i></a>
                 <i class="fa-solid fa-heart"></i>
                 <button class="btn-order">Order Now</button>
             </div>

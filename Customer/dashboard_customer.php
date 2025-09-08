@@ -188,6 +188,8 @@ We don't just serve dinner; we craft an experience for the senses, hoping you le
             </div>
         </div>
     </main>
+    <footer>
     <?php include '../Includes/footers/Footer_user.php'; ?>
+    </footer>
 </body>
 </html>
