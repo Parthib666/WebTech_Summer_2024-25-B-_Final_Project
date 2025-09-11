@@ -13,7 +13,9 @@ echo '<link rel="stylesheet" href="../CSS/footer_user.css">';
 echo '<script src="https://kit.fontawesome.com/31caec7e2c.js" crossorigin="anonymous"></script>';
 echo '<style>.cart-container { max-width: 600px; margin: 2rem auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); padding: 2rem; } .cart-item { display: flex; align-items: center; margin-bottom: 1rem; } .cart-item img { width: 80px; height: 60px; object-fit: cover; border-radius: 6px; margin-right: 1rem; } .cart-item-details { flex: 1; } .cart-item-qty { font-weight: bold; margin-left: 1rem; } .cart-total { font-size: 1.2rem; font-weight: bold; margin-top: 2rem; } .checkout-btn { margin-top: 2rem; padding: 0.75rem 2rem; background: #0d111d; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-size: 1rem; } .btn-qty { background: none; border: none; cursor: pointer; font-size: 1rem; } </style>';
 echo '</head><body>';
-echo '<header>'; include '../Includes/navbars/Navbar_user.php'; echo '</header>';
+echo '<header>';
+include '../Includes/navbars/Navbar_user.php';
+echo '</header>';
 echo '<main><div class="cart-container">';
 echo '<h2>Your Cart</h2>';
 if (empty($cart)) {
@@ -50,7 +52,9 @@ if (empty($cart)) {
 	echo '<form method="post"><button type="submit" name="checkout" class="checkout-btn">Checkout</button></form>';
 }
 echo '</div></main>';
-echo '<footer>'; include '../Includes/footers/Footer_user.php'; echo '</footer>';
+echo '<footer>';
+include '../Includes/footers/Footer_user.php';
+echo '</footer>';
 echo '</body></html>';
 
 // Handle increase quantity
@@ -83,8 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_item'], $_POST
 
 // Handle checkout (simple example: clear cart)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['checkout'])) {
-	$_SESSION['cart'] = [];
-	echo '<script>alert("Order placed successfully!"); window.location.href="menu_customer.php";</script>';
+	echo '<script>window.location.href="checkout.php";</script>';
 	exit;
 }
 $conn->close();
