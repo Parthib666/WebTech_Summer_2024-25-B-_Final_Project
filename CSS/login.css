@@ -108,25 +108,24 @@ input[type="password"]:focus {
   
 }
 
-button {
+.login-button button{
     width: 100%;
-    height: 40px;
-    background-color: #2587d2; /* #192950; */
+    height: 48px;
+    background: linear-gradient(90deg, #2587d2 0%, #4fc3f7 100%);
     font-weight: 700;
-    color: rgba(255, 245, 245, 0.993);
+    color: #fff;
     border: none;
-    border-radius: 4px;
-    font-size: 16px;
+    border-radius: 8px;
+    font-size: 1.1rem;
     cursor: pointer;
-    transition: background-color 0.3s;
-    margin: 10px 0;
+    margin: 18px 0 0 0;
+    box-shadow: 0 2px 8px rgba(37, 135, 210, 0.08);
+    transition: background 0.3s, box-shadow 0.3s;
 }
 
 button:hover {
-    background-color: #13335be2; /* #002776; */
-    box-shadow: 0 4px 10px rgba(0, 15, 47, 0.709);
-    transition: color 1s;
-
+    background: linear-gradient(90deg, #1976d2 0%, #29b6f6 100%);
+    box-shadow: 0 6px 18px rgba(37, 135, 210, 0.18);
 }
 .register{
   text-decoration: none;

@@ -1,31 +1,61 @@
 <?php
+include '../Config/db_connection.php';
+
 $email = $password = "";
 $emailErr = $passwordErr = "";
 $loginMsg = "";
 $showErrors = false;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $showErrors = true;
+  $showErrors = true;
 
-    if (empty($_POST["email"])) {
-      $emailErr = "Email is required.";
-    } else {
-      $email = $_POST["email"];
-    }
+  if (empty($_POST["email"])) {
+    $emailErr = "Email is required.";
+  } else {
+    $email = $_POST["email"];
+  }
 
-    if (empty($_POST["password"])) {
-        $passwordErr = "Password is required.";
-    } else {
-        $password = $_POST["password"];
-    }
+  if (empty($_POST["password"])) {
+    $passwordErr = "Password is required.";
+  } else {
+    $password = $_POST["password"];
+  }
 
   if (!$emailErr && !$passwordErr) {
-    if ($email == "admin@gmail.com" && $password == "admin123") {
-      $loginMsg = "<h3>Login successful!</h3>";
+    $sql = "SELECT * FROM users WHERE email = '" . $conn->real_escape_string($email) . "' AND password = '" . $conn->real_escape_string($password) . "'";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+      $user = $result->fetch_assoc();
+      if ($user['role'] === 'admin') {
+        header("Location: admin_dashboard.php");
+      } elseif ($user["role"] === "staff") {
+        header("Location: staff_dashboard.php");
+      } else {
+        if ($password === $user['password']) {
+            if (session_status() !== PHP_SESSION_ACTIVE) {
+                session_start();
+            }
+            $_SESSION['user_id'] = $user['user_id'];
+            $_SESSION['username'] = $user['username'];
+            $_SESSION['email'] = $user['email'];
+            $_SESSION['role'] = $user['role'];
+            $_SESSION['address'] = $user['address'];
+            $_SESSION['phone'] = $user['phone'];
+            header('Location: ../Customer/dashboard_customer.php');
+            exit;
+        } else {
+          $loginMsg = "<h3>Invalid email or password.</h3>";
+        }
+      }
+      exit();
     } else {
       $loginMsg = "<h3>Invalid email or password.</h3>";
     }
-    }
+    $stmt->close();
+
+  }
+  $conn->close();
+  $email= $password= "";
 }
 ?>
 <!DOCTYPE html>
@@ -64,7 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
       </div>
 
-      <center><button type="submit">Login</button></center>
+      <div class="login-button"><button type="submit">Login</button></div>
       <a class="register" href="Registration.php"><span class="register-link">Haven't account? Sign up.</span></a>
     </form>
     <center><?php if($showErrors) echo $loginMsg; ?></center>

@@ -1,3 +1,24 @@
+<?php
+session_start();
+// Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: Login_Page.php");
+    exit();
+}
+
+// Optional: Check if user has the correct role
+if ($_SESSION['role'] != 'customer') {
+    // Redirect to appropriate dashboard based on role
+    if ($_SESSION['role'] == 'admin') {
+        header("Location: dashboard_admin.php");
+    } else if ($_SESSION['role'] == 'staff') {
+        header("Location: dashboard_staff.php");
+    }
+    exit();
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

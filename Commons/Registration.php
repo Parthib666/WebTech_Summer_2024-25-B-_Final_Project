@@ -81,16 +81,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $termsErr = "You must agree to the terms and conditions";
     }
     
-    // If no errors, registration is successful
+  // If no errors, registration is successful
   if (empty($usernameErr) && empty($emailErr) && empty($phoneErr) && 
     empty($addressErr) && empty($passwordErr) && empty($confirmPasswordErr) && empty($termsErr)) {
-    $registrationSuccess = true;
-    $loginMsg = "<h3>Registration successful! You can now <a href='Login_Page.php'>log in</a>.</h3>";
-    // Here you would typically:
-    // 1. Hash the password: password_hash($password, PASSWORD_DEFAULT)
-    // 2. Save to database
-    // 3. Redirect to login page or send confirmation email
-    // For this example, we'll just show a success message
+    require_once '../Config/db_connection.php';
+    // Check if email already exists
+    $checkEmailSql = "SELECT user_id FROM users WHERE email = '$email'";
+    $checkEmailResult = $conn->query($checkEmailSql);
+    if ($checkEmailResult && $checkEmailResult->num_rows > 0) {
+      $emailErr = "This email is already registered";
+    } else {
+      // Hash the password
+      // $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+      // Insert into database
+      $insertSql = "INSERT INTO users (username, email, password, phone, address, role) VALUES ('$username', '$email', '$password', '$phone', '$address', 'customer')";
+      if ($conn->query($insertSql) === TRUE) {
+        $registrationSuccess = true;
+        $loginMsg = "<div class='success-msg'>Registration successful! You can now <a href='../Commons/Login_Page.php'>log in</a>.</div>";
+      } else {
+        $loginMsg = "<div class='error'>Registration failed. Please try again later.</div>";
+      }
+    }
+    $conn->close();
   }
 }
 
@@ -168,7 +180,7 @@ function cleanInput($data) {
       <center><button type="submit">Register</button></center>
       <a class="login" href="Login_Page.php"><span class="login-link">Already have an account? Log in.</span></a>
     </form>
-  <center><?php if($showErrors) echo $loginMsg; ?></center>
+  <center><?php if($showErrors && !empty($loginMsg) && $registrationSuccess) echo $loginMsg; ?></center>
   </div>
 </body>
 </html>
