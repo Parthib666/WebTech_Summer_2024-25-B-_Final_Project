@@ -1,3 +1,13 @@
+.success-msg {
+    color: #2e7d32;
+    background-color: #e3f9e5;
+    border: 1px solid #c8e6c9;
+    font-size: 1rem;
+    margin: 10px 0;
+    padding: 12px;
+    border-radius: 6px;
+    display: block;
+}
 /* Form header styles */
 .form-header {
     width: 100%;
@@ -208,7 +218,7 @@ button:hover {
       font-weight: 700;
       letter-spacing: 1px;
     } */
-@media (max-width: 600px) {
+/* @media (max-width: 600px) {
     .wrapper {
         max-width: 98vw;
         padding: 18px 6vw 18px 6vw;
@@ -225,4 +235,4 @@ button:hover {
         height: 44px;
         font-size: 1rem;
     }
-}
+} */

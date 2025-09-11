@@ -41,7 +41,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['role'] = $user['role'];
             $_SESSION['address'] = $user['address'];
             $_SESSION['phone'] = $user['phone'];
+<<<<<<< HEAD
             header('Location: ../Customer/dashboard_customer.php');
+=======
+<<<<<<< HEAD
+            header('Location: ../Customer/dashboard_customer.php');
+=======
+            header('Location: ../Customer/menu_customer.php');
+>>>>>>> 90d58683b36726914174d83b545d27e29e1a7a21
+>>>>>>> 5161dd4321ee57229d3fe166701f6d6a7699776f
             exit;
         } else {
           $loginMsg = "<h3>Invalid email or password.</h3>";
@@ -98,7 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
       </div>
 
-      <center><button type="submit">Login</button></center>
+      <div class="login-button"><button type="submit">Login</button></div>
       <a class="register" href="Registration.php"><span class="register-link">Haven't account? Sign up.</span></a>
     </form>
     <center><?php if ($showErrors)
