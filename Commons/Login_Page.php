@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['role'] = $user['role'];
             $_SESSION['address'] = $user['address'];
             $_SESSION['phone'] = $user['phone'];
-            header('Location: ../Customer/menu_customer.php');
+            header('Location: ../Customer/dashboard_customer.php');
             exit;
         } else {
           $loginMsg = "<h3>Invalid email or password.</h3>";
@@ -51,7 +51,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
       $loginMsg = "<h3>Invalid email or password.</h3>";
     }
-    $stmt->close();
 
   }
   $conn->close();

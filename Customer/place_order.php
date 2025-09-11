@@ -1,35 +1,64 @@
 <?php
 // place_order.php
 include '../Config/db_connection.php';
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $cart = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
-    $order_type = isset($_POST['order_type']) ? $_POST['order_type'] : 'dinein';
-    $promo_code = isset($_POST['promo_code']) ? trim($_POST['promo_code']) : '';
+session_start();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
+    // Get form data
+    $order_type = $_POST['orderType'];
+    $payment_method = $_POST['paymentMethod'];
+    $promo_code = isset($_POST['promo_code']) ? $_POST['promo_code'] : '';
     $subtotal = isset($_POST['subtotal']) ? floatval($_POST['subtotal']) : 0;
     $discount = isset($_POST['discount']) ? floatval($_POST['discount']) : 0;
-    $service_charge = isset($_POST['service_charge']) ? floatval($_POST['service_charge']) : 0;
-    $delivery_charge = isset($_POST['delivery_charge']) ? floatval($_POST['delivery_charge']) : 0;
-    $total_price = isset($_POST['total_price']) ? floatval($_POST['total_price']) : 0;
-    $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
-    if ($_SESSION['user_id'] != $user_id) {
-        echo 'error';
-        exit;
-    } else {
-        echo 'order_type: ' . $order_type . "\n";
-        echo 'promo_code: ' . $promo_code . "\n";
-        echo 'subtotal: ' . $subtotal . "\n";
-        echo 'discount: ' . $discount . "\n";
-        echo 'service_charge: ' . $service_charge . "\n";
-        echo 'delivery_charge: ' . $delivery_charge . "\n";
-        echo 'total_price: ' . $total_price . "\n";
-        echo 'user_id: ' . $user_id . "\n";
-        // $order_sql = "INSERT INTO orders (order_type, subTotal, discount, service_charge, delivery_charge, total, paid, user_id, date) VALUES ('$order_type', $subtotal, $discount, $service_charge, $delivery_charge, $total_price, 0, $user_id, NOW())";
-        // $conn->query($order_sql);
-        // Clear the cart after placing the order
-        unset($_SESSION['cart']);
-        echo 'success';
+    $service_charge = isset($_POST['serviceCharge']) ? floatval($_POST['serviceCharge']) : 0;
+    $delivery_charge = isset($_POST['deliveryCharge']) ? floatval($_POST['deliveryCharge']) : 0;
+    $total_price = isset($_POST['totalPrice']) ? floatval($_POST['totalPrice']) : 0;
+    $user_id = $_SESSION['user_id'];
+    
+    // Determine payment status
+    $paid = ($payment_method === 'cash') ? 0 : 1;
+    
+    // Insert order
+    $order_sql = "INSERT INTO orders (order_type, subTotal, discount, service_charge, delivery_charge, total, paid, user_id, date) 
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW())";
+    $stmt = $conn->prepare($order_sql);
+    $stmt->bind_param("sdddddis", $order_type, $subtotal, $discount, $service_charge, $delivery_charge, $total_price, $paid, $user_id);
+    
+    if ($stmt->execute()) {
+        $order_id = $conn->insert_id;
         
-        exit;
+        // Insert order items
+        $cart = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
+        
+        if (!empty($cart)) {
+            $ids = array_keys($cart);
+            $ids_str = implode(',', array_map('intval', $ids));
+            $sql = "SELECT * FROM menu WHERE menu_item_id IN ($ids_str)";
+            $result = $conn->query($sql);
+            
+            while ($item = $result->fetch_assoc()) {
+                $item_id = $item['menu_item_id'];
+                $qty = $cart[$item_id];
+                $price = $item['price'];
+                
+                $item_sql = "INSERT INTO order_items (order_id, menu_item_id, quantity, price) VALUES (?, ?, ?, ?)";
+                $item_stmt = $conn->prepare($item_sql);
+                $item_stmt->bind_param("iiid", $order_id, $item_id, $qty, $price);
+                $item_stmt->execute();
+                $item_stmt->close();
+            }
+        }
+        
+        // Clear cart
+        $_SESSION['cart'] = [];
+        
+        echo "success:Order placed successfully. Order ID: " . $order_id;
+    } else {
+        echo "error:Failed to place order. Please try again.";
     }
+    
+    $stmt->close();
+    $conn->close();
+    exit;
 }
 ?>
