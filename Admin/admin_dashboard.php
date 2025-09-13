@@ -58,6 +58,8 @@ $totalCustomers = $customersResult->fetch_assoc()['customer_count'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restaurant Management Dashboard</title>
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -129,13 +131,6 @@ $totalCustomers = $customersResult->fetch_assoc()['customer_count'];
             height: 20px;
             text-align: center;
         }
-        
-        .icon-dashboard::before { content: "📊"; }
-        .icon-menu::before { content: "🍽️"; }
-        .icon-orders::before { content: "📋"; }
-        .icon-customers::before { content: "👥"; }
-        .icon-reports::before { content: "📈"; }
-        .icon-settings::before { content: "⚙️"; }
         
         /* Main Content */
         .main-content {
@@ -319,6 +314,24 @@ $totalCustomers = $customersResult->fetch_assoc()['customer_count'];
             gap: 8px;
             transition: all 0.3s;
         }
+
+          .manage-menu-btn {
+            background: #0d111d;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            font-size: 14px;
+            gap: 8px;
+            margin-top: 15px;
+            transition: all 0.3s;
+        }
+
+        .manage-menu-btn:hover {
+            background: #2c3e50;
+        }
         
         .btn:hover {
             background: #2c3e50;
@@ -363,15 +376,15 @@ $totalCustomers = $customersResult->fetch_assoc()['customer_count'];
         <!-- Sidebar -->
         <div class="sidebar">
             <div class="brand">
-                <h1>GourmetAdmin</h1>
+                <h1>Admin Panel</h1>
             </div>
             <ul class="sidebar-menu">
-                <li class="active"><a href="#"><span class="icon icon-dashboard"></span> Dashboard</a></li>
-                <li><a href="#"><span class="icon icon-menu"></span> Menu</a></li>
-                <!-- <li><a href="#"><span class="icon icon-orders"></span> Orders</a></li>
-                <li><a href="#"><span class="icon icon-customers"></span> Customers</a></li>
-                <li><a href="#"><span class="icon icon-reports"></span> Reports</a></li>
-                <li><a href="#"><span class="icon icon-settings"></span> Settings</a></li> -->
+                <li class="active"><a href="#"><span class="icon"><i class="fas fa-tachometer-alt"></i></span> Dashboard</a></li>
+                <li><a href="../Customer/menu_customer.php"><span class="icon"><i class="fas fa-utensils"></i></span> Menu</a></li>
+                <li><a href="#"><span class="icon"><i class="fas fa-clipboard-list"></i></span> Orders</a></li>
+                <li><a href="#"><span class="icon"><i class="fas fa-users"></i></span> Customers</a></li>
+                <li><a href="#"><span class="icon"><i class="fas fa-chart-line"></i></span> Reports</a></li>
+                <li><a href="#"><span class="icon"><i class="fas fa-cog"></i></span> Settings</a></li>
             </ul>
         </div>
         
@@ -390,14 +403,14 @@ $totalCustomers = $customersResult->fetch_assoc()['customer_count'];
                 <div class="card">
                     <div class="card-header">
                         <h3>Total Orders</h3>
-                        <span class="icon">📦</span>
+                        <span class="icon"><i class="fas fa-box"></i></span>
                     </div>
                     <div class="stat">
                         <div class="stat-value"><?php echo $totalOrders; ?></div>
-                        <div class="stat-change">
+                        <!-- <div class="stat-change">
                             <span>📊</span>
                             <span>All orders</span>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="stat-label">Total orders placed</div>
                 </div>
@@ -405,14 +418,14 @@ $totalCustomers = $customersResult->fetch_assoc()['customer_count'];
                 <div class="card">
                     <div class="card-header">
                         <h3>Completed Orders</h3>
-                        <span class="icon">✅</span>
+                        <span class="icon"><i class="fas fa-check-circle"></i></span>
                     </div>
                     <div class="stat">
                         <div class="stat-value"><?php echo $completedOrders; ?></div>
-                        <div class="stat-change">
+                        <!-- <div class="stat-change">
                             <span>📊</span>
                             <span>Successfully delivered</span>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="stat-label">Completed orders</div>
                 </div>
@@ -420,14 +433,14 @@ $totalCustomers = $customersResult->fetch_assoc()['customer_count'];
                 <div class="card">
                     <div class="card-header">
                         <h3>Pending Orders</h3>
-                        <span class="icon">⏳</span>
+                        <span class="icon"><i class="fas fa-hourglass-half"></i></span>
                     </div>
                     <div class="stat">
                         <div class="stat-value"><?php echo $pendingOrders; ?></div>
-                        <div class="stat-change">
+                        <!-- <div class="stat-change">
                             <span>📊</span>
                             <span>Awaiting processing</span>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="stat-label">Orders in progress</div>
                 </div>
@@ -435,14 +448,14 @@ $totalCustomers = $customersResult->fetch_assoc()['customer_count'];
                 <div class="card">
                     <div class="card-header">
                         <h3>Total Revenue</h3>
-                        <span class="icon">💰</span>
+                        <span class="icon"><i class="fas fa-money-bill-wave"></i></span>
                     </div>
                     <div class="stat">
                         <div class="stat-value">৳<?php echo number_format($totalRevenue, 2); ?></div>
-                        <div class="stat-change">
+                        <!-- <div class="stat-change">
                             <span>📊</span>
                             <span>From completed orders</span>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="stat-label">Total revenue generated</div>
                 </div>
@@ -450,14 +463,14 @@ $totalCustomers = $customersResult->fetch_assoc()['customer_count'];
                 <div class="card">
                     <div class="card-header">
                         <h3>Customer Satisfaction</h3>
-                        <span class="icon">😊</span>
+                        <span class="icon"><i class="fas fa-smile"></i></span>
                     </div>
                     <div class="stat">
                         <div class="stat-value"><?php echo $satisfactionRate; ?>%</div>
-                        <div class="stat-change">
+                        <!-- <div class="stat-change">
                             <span>⭐</span>
                             <span>Based on order completion</span>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="stat-label">Satisfaction rate</div>
                 </div>
@@ -465,14 +478,14 @@ $totalCustomers = $customersResult->fetch_assoc()['customer_count'];
                 <div class="card">
                     <div class="card-header">
                         <h3>Total Customers</h3>
-                        <span class="icon">👥</span>
+                        <span class="icon"><i class="fas fa-users"></i></span>
                     </div>
                     <div class="stat">
                         <div class="stat-value"><?php echo $totalCustomers; ?></div>
-                        <div class="stat-change">
+                        <!-- <div class="stat-change">
                             <span>📊</span>
                             <span>Registered customers</span>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="stat-label">Total customer accounts</div>
                 </div>
@@ -519,10 +532,10 @@ $totalCustomers = $customersResult->fetch_assoc()['customer_count'];
                                 echo "<tr>
                                     <td>#ORD-" . $order['order_id'] . "</td>
                                     <td>" . htmlspecialchars($order['customer']) . " (ID: " . $order['user_id'] . ")</td>
-                                    <td>৳" . number_format($order['amount'], 2) . "</td>
+                                    <td>" . number_format($order['amount'], 2) . " BDT</td>
                                     <td><span class='status $statusClass'>" . ucfirst($order['status']) . "</span></td>
                                     <td>" . ucfirst($order['order_type']) . "</td>
-                                    <td>৳" . number_format($order['paid'], 2) . "</td>
+                                    <td>" . number_format($order['paid'], 2) . " BDT</td>
                                 </tr>";
                             }
                         } else {
@@ -538,28 +551,31 @@ $totalCustomers = $customersResult->fetch_assoc()['customer_count'];
                 <div class="card">
                     <div class="card-header">
                         <h3>Menu Management</h3>
-                        <span class="icon">🍽️</span>
+                        <span class="icon"><i class="fas fa-utensils"></i></span>
                     </div>
                     <p>Update your menu items, prices, and categories</p>
-                    <button class="btn" style="margin-top: 15px;"><span>✏️</span> Manage Menu</button>
+                    <!-- <a href="Admin/manage_menu.php"><button class="btn" style="margin-top: 15px;"><span class="icon"><i class="fas fa-pen"></i></span> Manage Menu</button></a> -->
+                      <a href="../Admin/manage_menu.php" class="manage-menu-btn">
+                        <i class="fas fa-pen"></i>Manage Menu
+                    </a>
                 </div>
-                
+
                 <div class="card">
                     <div class="card-header">
                         <h3>Customer Management</h3>
-                        <span class="icon">👥</span>
+                        <span class="icon"><i class="fas fa-users"></i></span>
                     </div>
                     <p>View and manage your customer information</p>
-                    <button class="btn" style="margin-top: 15px;"><span>👁️</span> View Customers</button>
+                    <button class="btn" style="margin-top: 15px;"><span class="icon"><i class="fas fa-eye"></i></span> View Customers</button>
                 </div>
 
                 <div class="card">
                     <div class="card-header">
                         <h3>Order Management</h3>
-                        <span class="icon">📋</span>
+                        <span class="icon"><i class="fas fa-clipboard-list"></i></span>
                     </div>
                     <p>View and manage your order information</p>
-                    <button class="btn" style="margin-top: 15px;"><span>👁️</span> View Orders</button>
+                    <button class="btn" style="margin-top: 15px;"><span class="icon"><i class="fas fa-eye"></i></span> View Orders</button>
                 </div>
         </div>
     </div>
