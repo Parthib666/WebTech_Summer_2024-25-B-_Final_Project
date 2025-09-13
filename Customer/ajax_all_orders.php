@@ -6,7 +6,7 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 $user_id = $_SESSION['user_id'];
-$sql = "SELECT * FROM orders WHERE user_id = ? AND status IN ('pending', 'preparing', 'ready', 'delivering') ORDER BY date DESC";
+$sql = "SELECT * FROM orders WHERE user_id = ? ORDER BY date DESC";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param('s', $user_id);
 $stmt->execute();

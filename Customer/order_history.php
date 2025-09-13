@@ -10,13 +10,13 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'customer') {
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Active Orders</title>
+	<title>Order History</title>
 	<link rel="stylesheet" href="../CSS/navbar.css">
 	<link rel="stylesheet" href="../CSS/footer_user.css">
     <script src="https://kit.fontawesome.com/31caec7e2c.js" crossorigin="anonymous"></script>
 	<style>
 		body { font-family: Arial, sans-serif; background: #f8f9fa; margin: 0; }
-		.container { max-width: 600px; margin: 40px auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #eee; padding: 2rem; }
+		.container { max-width: 700px; margin: 40px auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #eee; padding: 2rem; }
 		h2 { text-align: center; color: #4361ee; margin-bottom: 1.5rem; }
 		#orders-content { min-height: 100px; }
 		.order-card { border: 1px solid #e0e0e0; border-radius: 6px; padding: 1rem; margin-bottom: 1rem; background: #f9f9f9; }
@@ -32,8 +32,8 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'customer') {
 	<header><?php include '../Includes/navbars/Navbar_user.php'; ?></header>
 	<main>
 		<div class="container">
-			<h2>Your Active Orders</h2>
-			<button class="reload-btn" onclick="fetchOrders()">Refresh</button>
+			<h2>Your Order History</h2>
+			<button class="reload-btn" onclick="fetchOrders()">Reload Orders</button>
 			<div id="orders-content"><div class="no-orders">Loading...</div></div>
 		</div>
 	</main>
@@ -43,7 +43,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'customer') {
 		var container = document.getElementById('orders-content');
 		container.innerHTML = '<div class="no-orders">Loading...</div>';
 		var xhr = new XMLHttpRequest();
-		xhr.open('GET', 'ajax_active_orders.php', true);
+		xhr.open('GET', 'ajax_all_orders.php', true);
 		xhr.onload = function() {
 			if (xhr.status === 200) {
 				container.innerHTML = xhr.responseText;
