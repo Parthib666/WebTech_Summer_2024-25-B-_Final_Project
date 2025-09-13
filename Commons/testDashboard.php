@@ -1,3 +1,57 @@
+<?php
+session_start();
+require_once '../Config/db_connection.php';
+
+// Check if user is logged in and is admin
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
+    header("Location: Login_Page.php");
+    exit();
+}
+
+// Total orders count
+$totalOrdersQuery = "SELECT COUNT(*) as order_count FROM `order`";
+$totalOrdersResult = $conn->query($totalOrdersQuery);
+$totalOrders = $totalOrdersResult->fetch_assoc()['order_count'];
+
+// Completed orders count
+$completedOrdersQuery = "SELECT COUNT(*) as completed_count FROM `order` WHERE status = 'completed'";
+$completedOrdersResult = $conn->query($completedOrdersQuery);
+$completedOrders = $completedOrdersResult->fetch_assoc()['completed_count'];
+
+// Pending orders count
+$pendingOrdersQuery = "SELECT COUNT(*) as pending_count FROM `order` WHERE status = 'pending'";
+$pendingOrdersResult = $conn->query($pendingOrdersQuery);
+$pendingOrders = $pendingOrdersResult->fetch_assoc()['pending_count'];
+
+// Total revenue from completed orders
+$revenueQuery = "SELECT SUM(total) as total_revenue FROM `order` WHERE status = 'completed'";
+$revenueResult = $conn->query($revenueQuery);
+$totalRevenue = $revenueResult->fetch_assoc()['total_revenue'] ?? 0;
+
+// Fetch recent orders (last 5 orders) - ordered by order_id descending
+$recentOrdersQuery = "SELECT o.order_id, u.username as customer, 
+                     o.total as amount, o.status, o.order_type,
+                     o.subTotal, o.discount, o.service_charge, o.delivery_charge,
+                     o.paid, o.user_id
+                     FROM `order` o
+                     JOIN users u ON o.user_id = u.user_id
+                     ORDER BY o.order_id DESC 
+                     LIMIT 5";
+$recentOrdersResult = $conn->query($recentOrdersQuery);
+
+// Calculate customer satisfaction rate based on completed vs total orders
+if ($totalOrders > 0) {
+    $satisfactionRate = round(($completedOrders / $totalOrders) * 100);
+} else {
+    $satisfactionRate = 0;
+}
+
+// Get total customers count
+$customersQuery = "SELECT COUNT(*) as customer_count FROM users WHERE role = 'customer'";
+$customersResult = $conn->query($customersQuery);
+$totalCustomers = $customersResult->fetch_assoc()['customer_count'];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -314,10 +368,10 @@
             <ul class="sidebar-menu">
                 <li class="active"><a href="#"><span class="icon icon-dashboard"></span> Dashboard</a></li>
                 <li><a href="#"><span class="icon icon-menu"></span> Menu</a></li>
-                <li><a href="#"><span class="icon icon-orders"></span> Orders</a></li>
+                <!-- <li><a href="#"><span class="icon icon-orders"></span> Orders</a></li>
                 <li><a href="#"><span class="icon icon-customers"></span> Customers</a></li>
                 <li><a href="#"><span class="icon icon-reports"></span> Reports</a></li>
-                <li><a href="#"><span class="icon icon-settings"></span> Settings</a></li>
+                <li><a href="#"><span class="icon icon-settings"></span> Settings</a></li> -->
             </ul>
         </div>
         
@@ -326,8 +380,8 @@
             <div class="header">
                 <h2>Dashboard Overview</h2>
                 <div class="user-info">
-                    <div class="user-avatar">AJ</div>
-                    <span>Admin User</span>
+                    <div class="user-avatar"><?php echo substr($_SESSION['username'], 0, 2); ?></div>
+                    <span><?php echo $_SESSION['username']; ?> (Admin)</span>
                 </div>
             </div>
             
@@ -335,47 +389,62 @@
             <div class="dashboard-grid">
                 <div class="card">
                     <div class="card-header">
-                        <h3>Today's Orders</h3>
+                        <h3>Total Orders</h3>
                         <span class="icon">📦</span>
                     </div>
                     <div class="stat">
-                        <div class="stat-value">42</div>
+                        <div class="stat-value"><?php echo $totalOrders; ?></div>
                         <div class="stat-change">
-                            <span>↑</span>
-                            <span>12% from yesterday</span>
+                            <span>📊</span>
+                            <span>All orders</span>
                         </div>
                     </div>
-                    <div class="stat-label">Total orders placed today</div>
+                    <div class="stat-label">Total orders placed</div>
                 </div>
                 
                 <div class="card">
                     <div class="card-header">
-                        <h3>Revenue</h3>
+                        <h3>Completed Orders</h3>
+                        <span class="icon">✅</span>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value"><?php echo $completedOrders; ?></div>
+                        <div class="stat-change">
+                            <span>📊</span>
+                            <span>Successfully delivered</span>
+                        </div>
+                    </div>
+                    <div class="stat-label">Completed orders</div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Pending Orders</h3>
+                        <span class="icon">⏳</span>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value"><?php echo $pendingOrders; ?></div>
+                        <div class="stat-change">
+                            <span>📊</span>
+                            <span>Awaiting processing</span>
+                        </div>
+                    </div>
+                    <div class="stat-label">Orders in progress</div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Total Revenue</h3>
                         <span class="icon">💰</span>
                     </div>
                     <div class="stat">
-                        <div class="stat-value">₹12,845</div>
+                        <div class="stat-value">৳<?php echo number_format($totalRevenue, 2); ?></div>
                         <div class="stat-change">
-                            <span>↑</span>
-                            <span>8% from yesterday</span>
+                            <span>📊</span>
+                            <span>From completed orders</span>
                         </div>
                     </div>
-                    <div class="stat-label">Total revenue today</div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-header">
-                        <h3>Active Tables</h3>
-                        <span class="icon">🪑</span>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-value">16/24</div>
-                        <div class="stat-change">
-                            <span>↓</span>
-                            <span>2% from yesterday</span>
-                        </div>
-                    </div>
-                    <div class="stat-label">Currently occupied tables</div>
+                    <div class="stat-label">Total revenue generated</div>
                 </div>
                 
                 <div class="card">
@@ -384,13 +453,28 @@
                         <span class="icon">😊</span>
                     </div>
                     <div class="stat">
-                        <div class="stat-value">94%</div>
+                        <div class="stat-value"><?php echo $satisfactionRate; ?>%</div>
                         <div class="stat-change">
-                            <span>↑</span>
-                            <span>3% from last week</span>
+                            <span>⭐</span>
+                            <span>Based on order completion</span>
                         </div>
                     </div>
-                    <div class="stat-label">Based on 38 reviews</div>
+                    <div class="stat-label">Satisfaction rate</div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Total Customers</h3>
+                        <span class="icon">👥</span>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value"><?php echo $totalCustomers; ?></div>
+                        <div class="stat-change">
+                            <span>📊</span>
+                            <span>Registered customers</span>
+                        </div>
+                    </div>
+                    <div class="stat-label">Total customer accounts</div>
                 </div>
             </div>
             
@@ -406,53 +490,45 @@
                         <tr>
                             <th>Order ID</th>
                             <th>Customer</th>
-                            <th>Items</th>
                             <th>Amount</th>
                             <th>Status</th>
-                            <th>Time</th>
+                            <th>Type</th>
+                            <th>Paid</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>#ORD-2189</td>
-                            <td>Rahul Sharma</td>
-                            <td>2</td>
-                            <td>₹620</td>
-                            <td><span class="status status-completed">Completed</span></td>
-                            <td>12:30 PM</td>
-                        </tr>
-                        <tr>
-                            <td>#ORD-2190</td>
-                            <td>Priya Patel</td>
-                            <td>3</td>
-                            <td>₹1,150</td>
-                            <td><span class="status status-pending">Preparing</span></td>
-                            <td>12:45 PM</td>
-                        </tr>
-                        <tr>
-                            <td>#ORD-2191</td>
-                            <td>Vikram Singh</td>
-                            <td>1</td>
-                            <td>₹350</td>
-                            <td><span class="status status-pending">Pending</span></td>
-                            <td>1:05 PM</td>
-                        </tr>
-                        <tr>
-                            <td>#ORD-2192</td>
-                            <td>Anjali Mehta</td>
-                            <td>4</td>
-                            <td>₹1,840</td>
-                            <td><span class="status status-completed">Completed</span></td>
-                            <td>1:20 PM</td>
-                        </tr>
-                        <tr>
-                            <td>#ORD-2193</td>
-                            <td>Sanjay Kumar</td>
-                            <td>2</td>
-                            <td>₹780</td>
-                            <td><span class="status status-canceled">Canceled</span></td>
-                            <td>1:35 PM</td>
-                        </tr>
+                        <?php
+                        if ($recentOrdersResult->num_rows > 0) {
+                            while($order = $recentOrdersResult->fetch_assoc()) {
+                                $statusClass = '';
+                                switch($order['status']) {
+                                    case 'completed':
+                                        $statusClass = 'status-completed';
+                                        break;
+                                    case 'pending':
+                                    case 'preparing':
+                                        $statusClass = 'status-pending';
+                                        break;
+                                    case 'canceled':
+                                        $statusClass = 'status-canceled';
+                                        break;
+                                    default:
+                                        $statusClass = 'status-pending';
+                                }
+                                
+                                echo "<tr>
+                                    <td>#ORD-" . $order['order_id'] . "</td>
+                                    <td>" . htmlspecialchars($order['customer']) . " (ID: " . $order['user_id'] . ")</td>
+                                    <td>৳" . number_format($order['amount'], 2) . "</td>
+                                    <td><span class='status $statusClass'>" . ucfirst($order['status']) . "</span></td>
+                                    <td>" . ucfirst($order['order_type']) . "</td>
+                                    <td>৳" . number_format($order['paid'], 2) . "</td>
+                                </tr>";
+                            }
+                        } else {
+                            echo "<tr><td colspan='6' style='text-align: center;'>No recent orders found</td></tr>";
+                        }
+                        ?>
                     </tbody>
                 </table>
             </div>
@@ -470,28 +546,23 @@
                 
                 <div class="card">
                     <div class="card-header">
-                        <h3>Staff Management</h3>
+                        <h3>Customer Management</h3>
                         <span class="icon">👥</span>
                     </div>
-                    <p>View and manage your staff schedules and roles</p>
-                    <button class="btn" style="margin-top: 15px;"><span>👤</span> Manage Staff</button>
+                    <p>View and manage your customer information</p>
+                    <button class="btn" style="margin-top: 15px;"><span>👁️</span> View Customers</button>
                 </div>
-            </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Order Management</h3>
+                        <span class="icon">📋</span>
+                    </div>
+                    <p>View and manage your order information</p>
+                    <button class="btn" style="margin-top: 15px;"><span>👁️</span> View Orders</button>
+                </div>
         </div>
     </div>
 
-    <script>
-        // Simple active menu item handling
-        document.addEventListener('DOMContentLoaded', function() {
-            const menuItems = document.querySelectorAll('.sidebar-menu li');
-            
-            menuItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    menuItems.forEach(i => i.classList.remove('active'));
-                    this.classList.add('active');
-                });
-            });
-        });
-    </script>
 </body>
 </html>

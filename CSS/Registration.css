@@ -58,13 +58,13 @@ form {
 }
 
 
-label {
+/* label {
     font-size: 1rem;
     color: #2587d2;
     font-weight: 500;
     margin-bottom: 0;
     letter-spacing: 1px;
-}
+} */
 
 
 .input-field {
