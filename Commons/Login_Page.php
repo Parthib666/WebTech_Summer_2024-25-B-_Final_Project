@@ -35,10 +35,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $_SESSION['role'] = $user['role'];
       $_SESSION['address'] = $user['address'];
       $_SESSION['phone'] = $user['phone'];
-      //closing the connection before redirecting
-      $conn->close();
+
       if ($user['role'] === 'admin') {
-        header("Location: ../Admin/admin_dashboard.php");
+        header("Location: testDashboard.php");
       } elseif ($user["role"] === "staff") {
         header("Location: staff_dashboard.php");
       } else {

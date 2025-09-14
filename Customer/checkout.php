@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['user_id'])) {
-    header('Location: ../Customer/Login_page.php');
+    header('Location: ../Commons/Login_page.php');
     exit;
 }
 include '../Config/db_connection.php';
