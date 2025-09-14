@@ -315,7 +315,7 @@ $totalCustomers = $customersResult->fetch_assoc()['customer_count'];
             transition: all 0.3s;
         }
 
-          .manage-menu-btn {
+          .btn {
             background: #0d111d;
             color: white;
             padding: 10px 20px;
@@ -328,14 +328,11 @@ $totalCustomers = $customersResult->fetch_assoc()['customer_count'];
             margin-top: 15px;
             transition: all 0.3s;
         }
-
-        .manage-menu-btn:hover {
-            background: #2c3e50;
-        }
         
         .btn:hover {
             background: #2c3e50;
         }
+    
         
         /* Responsive */
         @media (max-width: 992px) {
@@ -555,7 +552,7 @@ $totalCustomers = $customersResult->fetch_assoc()['customer_count'];
                     </div>
                     <p>Update your menu items, prices, and categories</p>
                     <!-- <a href="Admin/manage_menu.php"><button class="btn" style="margin-top: 15px;"><span class="icon"><i class="fas fa-pen"></i></span> Manage Menu</button></a> -->
-                      <a href="../Admin/manage_menu.php" class="manage-menu-btn">
+                      <a href="../Admin/manage_menu.php" class="btn">
                         <i class="fas fa-pen"></i>Manage Menu
                     </a>
                 </div>
@@ -566,16 +563,20 @@ $totalCustomers = $customersResult->fetch_assoc()['customer_count'];
                         <span class="icon"><i class="fas fa-users"></i></span>
                     </div>
                     <p>View and manage your customer information</p>
-                    <button class="btn" style="margin-top: 15px;"><span class="icon"><i class="fas fa-eye"></i></span> View Customers</button>
+                    <a href="../Admin/view_customer.php" class="btn">
+                        <i class="fas fa-eye"></i>View Customers
+                    </a>
                 </div>
 
                 <div class="card">
                     <div class="card-header">
-                        <h3>Order Management</h3>
+                        <h3>Inventory Management</h3>
                         <span class="icon"><i class="fas fa-clipboard-list"></i></span>
                     </div>
-                    <p>View and manage your order information</p>
-                    <button class="btn" style="margin-top: 15px;"><span class="icon"><i class="fas fa-eye"></i></span> View Orders</button>
+                    <p>View and manage your inventory information</p>
+                    <a href="../Admin/view_inventory.php" class="btn">
+                        <i class="fas fa-eye"></i>View Inventory
+                    </a>
                 </div>
         </div>
     </div>

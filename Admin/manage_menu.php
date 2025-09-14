@@ -16,7 +16,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $price = $conn->real_escape_string($_POST['price']);
         $description = $conn->real_escape_string($_POST['description']);
         $category = $conn->real_escape_string($_POST['category']);
+        
+        // Handle image upload
         $image = 'default.jpg'; // Default image
+        if (isset($_FILES['menu_image']) && $_FILES['menu_image']['error'] == 0) {
+            $target_dir = "../Images/menu/";
+            if (!file_exists($target_dir)) {
+                mkdir($target_dir, 0777, true);
+            }
+            
+            $file_extension = pathinfo($_FILES["menu_image"]["name"], PATHINFO_EXTENSION);
+            $new_filename = uniqid() . '.' . $file_extension;
+            $target_file = $target_dir . $new_filename;
+            
+            // Check if image file is an actual image
+            $check = getimagesize($_FILES["menu_image"]["tmp_name"]);
+            if ($check !== false) {
+                if (move_uploaded_file($_FILES["menu_image"]["tmp_name"], $target_file)) {
+                    $image = $new_filename;
+                }
+            }
+        }
         
         $query = "INSERT INTO menu (name, price, image, description, category) 
                  VALUES ('$name', '$price', '$image', '$description', '$category')";
@@ -34,9 +54,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $description = $conn->real_escape_string($_POST['description']);
         $category = $conn->real_escape_string($_POST['category']);
         
+        // Handle image upload for update
+        $image_query = "";
+        if (isset($_FILES['menu_image']) && $_FILES['menu_image']['error'] == 0) {
+            $target_dir = "../Images/menu/";
+            if (!file_exists($target_dir)) {
+                mkdir($target_dir, 0777, true);
+            }
+            
+            $file_extension = pathinfo($_FILES["menu_image"]["name"], PATHINFO_EXTENSION);
+            $new_filename = uniqid() . '.' . $file_extension;
+            $target_file = $target_dir . $new_filename;
+            
+            // Check if image file is an actual image
+            $check = getimagesize($_FILES["menu_image"]["tmp_name"]);
+            if ($check !== false && move_uploaded_file($_FILES["menu_image"]["tmp_name"], $target_file)) {
+                $image_query = ", image='$new_filename'";
+            }
+        }
+        
         $query = "UPDATE menu SET 
                  name='$name', price='$price', description='$description', category='$category'
-                 WHERE menu_item_id='$menu_item_id'";
+                 $image_query WHERE menu_item_id='$menu_item_id'";
         
         if ($conn->query($query)) {
             $success_msg = "Menu item updated successfully!";
@@ -145,6 +184,10 @@ $menu_result = $conn->query($menu_query);
             resize: vertical;
         }
         
+        .form-group input[type="file"] {
+            padding: 5px;
+        }
+        
         .btn {
             background: #0d111d;
             color: white;
@@ -180,6 +223,14 @@ $menu_result = $conn->query($menu_query);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             padding: 15px;
             position: relative;
+        }
+        
+        .menu-item-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 10px;
         }
         
         .menu-item-header {
@@ -257,6 +308,22 @@ $menu_result = $conn->query($menu_query);
             color: #721c24;
             border: 1px solid #f5c6cb;
         }
+        
+        .image-preview {
+            width: 100px;
+            height: 100px;
+            border: 1px dashed #ddd;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .image-preview img {
+            max-width: 100%;
+            max-height: 100%;
+        }
     </style>
 </head>
 <body>
@@ -268,7 +335,7 @@ $menu_result = $conn->query($menu_query);
         <div class="admin-container">
             <div class="admin-header">
                 <h1>Menu Management</h1>
-                <a href="../Admin/admin_dashboard.php" class="back-btn">
+                <a href="testDashboard.php" class="back-btn">
                     <i class="fas fa-arrow-left"></i> Back to Dashboard
                 </a>
             </div>
@@ -284,7 +351,7 @@ $menu_result = $conn->query($menu_query);
             <!-- Add New Menu Item Form -->
             <div class="admin-card">
                 <h2>Add New Menu Item</h2>
-                <form method="POST" action="">
+                <form method="POST" action="" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="name">Item Name</label>
                         <input type="text" id="name" name="name" required>
@@ -313,6 +380,14 @@ $menu_result = $conn->query($menu_query);
                         </select>
                     </div>
                     
+                    <div class="form-group">
+                        <label for="menu_image">Item Image</label>
+                        <input type="file" id="menu_image" name="menu_image" accept="image/*">
+                        <div class="image-preview" id="imagePreview">
+                            <span>Image Preview</span>
+                        </div>
+                    </div>
+                    
                     <button type="submit" name="add_menu_item" class="btn">Add Menu Item</button>
                 </form>
             </div>
@@ -325,6 +400,10 @@ $menu_result = $conn->query($menu_query);
                     <div class="menu-items-grid">
                         <?php while ($item = $menu_result->fetch_assoc()): ?>
                             <div class="menu-item-card">
+                                <?php if ($item['image'] && $item['image'] != 'default.jpg'): ?>
+                                    <img src="../Images/menu/<?php echo $item['image']; ?>" alt="<?php echo htmlspecialchars($item['name']); ?>" class="menu-item-image" onerror="this.style.display='none'">
+                                <?php endif; ?>
+                                
                                 <div class="menu-item-header">
                                     <div class="menu-item-name"><?php echo htmlspecialchars($item['name']); ?></div>
                                     <div class="menu-item-price">৳<?php echo number_format($item['price'], 2); ?></div>
@@ -338,7 +417,7 @@ $menu_result = $conn->query($menu_query);
                                 
                                 <div class="menu-item-actions">
                                     <!-- Edit Form -->
-                                    <form method="POST" action="" style="display: inline;">
+                                    <form method="POST" action="" enctype="multipart/form-data" style="display: inline;">
                                         <input type="hidden" name="menu_item_id" value="<?php echo $item['menu_item_id']; ?>">
                                         <input type="hidden" name="name" value="<?php echo htmlspecialchars($item['name']); ?>">
                                         <input type="hidden" name="price" value="<?php echo $item['price']; ?>">
@@ -369,6 +448,24 @@ $menu_result = $conn->query($menu_query);
     </footer>
 
     <script>
+        // Image preview functionality
+        const menuImageInput = document.getElementById('menu_image');
+        const imagePreview = document.getElementById('imagePreview');
+        
+        menuImageInput.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.addEventListener('load', function() {
+                    imagePreview.innerHTML = '';
+                    const img = document.createElement('img');
+                    img.src = reader.result;
+                    imagePreview.appendChild(img);
+                });
+                reader.readAsDataURL(file);
+            }
+        });
+        
         // Pre-fill form when editing
         document.addEventListener('DOMContentLoaded', function() {
             const forms = document.querySelectorAll('form');
