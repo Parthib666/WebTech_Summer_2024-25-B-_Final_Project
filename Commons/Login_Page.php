@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $_SESSION['phone'] = $user['phone'];
 
       if ($user['role'] === 'admin') {
-        header("Location: testDashboard.php");
+        header("Location: ../Admin/admin_dashboard.php");
       } elseif ($user["role"] === "staff") {
         header("Location: staff_dashboard.php");
       } else {
@@ -56,10 +56,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="en">
 <head>
   <link rel="stylesheet" href="../CSS/login.css">
-  <title>Restaurant Management</title>
+  <title>User Login</title>
 </head>
 <body>
-  <!-- <h2>Restaurant Management</h2> -->
   <div class="center">
         <div class="material-logo">
             <div class="logo-layers">

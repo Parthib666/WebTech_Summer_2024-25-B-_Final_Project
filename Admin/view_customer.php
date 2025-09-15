@@ -32,7 +32,7 @@ $customers_result = $conn->query($customers_query);
 
 // Get order counts for each customer
 $order_counts = [];
-$order_count_query = "SELECT user_id, COUNT(*) as order_count FROM `order` GROUP BY user_id";
+$order_count_query = "SELECT user_id, COUNT(*) as order_count FROM `orders` GROUP BY user_id";
 $order_count_result = $conn->query($order_count_query);
 while ($row = $order_count_result->fetch_assoc()) {
     $order_counts[$row['user_id']] = $row['order_count'];
