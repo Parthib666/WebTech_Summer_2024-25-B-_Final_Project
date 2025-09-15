@@ -239,13 +239,13 @@ body {
 }
 
 /* Responsive */
-@media (max-width: 992px) {
-  .dashboard-grid {
+/* @media (max-width: 992px) {
+  .dashboard-container {
     grid-template-columns: 1fr 1fr;
   }
 }
 
-/* @media (max-width: 768px) {
+@media (max-width: 768px) {
   .dashboard-container {
     flex-direction: column;
   }

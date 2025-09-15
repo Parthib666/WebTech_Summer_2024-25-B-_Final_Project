@@ -53,7 +53,7 @@ $totalCustomers = $customersResult->fetch_assoc()['customer_count'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
-    <!-- Font Awesome CDN -->
+    <!-- Font Awesome link added for the icons-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="../CSS/admin_dashboard.css">
 </head>
@@ -80,6 +80,7 @@ $totalCustomers = $customersResult->fetch_assoc()['customer_count'];
             <div class="dashboard-header">
                 <h2>Dashboard Overview</h2>
                 <div class="admin-info">
+                    <span class="icon"><i class="fas fa-user-shield"></i></span>
                     <span><?php echo $_SESSION['username']; ?> (Admin)</span>
                 </div>
             </div>
