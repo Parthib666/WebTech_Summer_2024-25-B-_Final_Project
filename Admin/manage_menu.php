@@ -8,10 +8,13 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
     exit();
 }
 
-// Handle form submissions
+// Handling the form submissions. 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Add new menu item
+
+    //adding a new item to the menu. 
     if (isset($_POST['add_menu_item'])) {
+
+        //if the "add_menu_item" button is clicked then we are storing the values fromn the form to the variables. 
         $name = $_POST['name'];
         $price = $_POST['price'];
         $description = $_POST['description'];
@@ -19,31 +22,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $image = 'default.jpg'; // Default image
 
         $target_dir = "../Images/menu/";
+        
+        //if there is no directory exist then we are creating a new directory
         if (!file_exists($target_dir)) {
-            mkdir($target_dir, 0777, true);
+            mkdir($target_dir);
         }
 
         if (isset($_FILES["menu_image"]) && $_FILES["menu_image"]["error"] == 0) {
             $file_extension = pathinfo($_FILES["menu_image"]["name"], PATHINFO_EXTENSION);
             $new_filename = uniqid() . '.' . $file_extension;
+            //storing the newly generated unique file name to a variable. 
             $target_file = $target_dir . $new_filename;
 
-            $check = getimagesize($_FILES["menu_image"]["tmp_name"]);
-            if ($check !== false && move_uploaded_file($_FILES["menu_image"]["tmp_name"], $target_file)) {
-                $image = $new_filename;
+            if (move_uploaded_file($_FILES["menu_image"]["tmp_name"], $target_file)) {
+                // if upload is successful, we are storing the new filename to the image variable which will go to the database. 
+                $image = $new_filename; 
             }
         }
 
+        //query creation. 
         $sql = "INSERT INTO menu (name, price, image, description, category) 
                 VALUES ('$name', '$price', '$image', '$description', '$category')";
 
+        //if query is successfully executed
         if ($conn->query($sql)) {
             $success_msg = "Menu item added successfully!";
         } else {
             $error_msg = "Error adding menu item: " . $conn->error;
         }
     }
-    // Update menu item
+
+    // Updating the menu item here. 
     elseif (isset($_POST['update_menu_item'])) {
         $menu_item_id = $_POST['menu_item_id'];
         $name = $_POST['name'];
@@ -55,26 +64,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $target_dir = "../Images/menu/";
         if (isset($_FILES['menu_image']) && $_FILES['menu_image']['error'] == 0) {
             if (!file_exists($target_dir)) {
-                mkdir($target_dir, 0777, true);
+                mkdir($target_dir);
             }
 
             $file_extension = pathinfo($_FILES["menu_image"]["name"], PATHINFO_EXTENSION);
             $new_filename = uniqid() . '.' . $file_extension;
             $target_file = $target_dir . $new_filename;
 
-            $check = getimagesize($_FILES["menu_image"]["tmp_name"]);
-            if ($check !== false && move_uploaded_file($_FILES["menu_image"]["tmp_name"], $target_file)) {
+            if (move_uploaded_file($_FILES["menu_image"]["tmp_name"], $target_file)) {
                 $image_query = ", image='$new_filename'";
-
-                // Delete old image if it's not the default
-                $old_image_query = "SELECT image FROM menu WHERE menu_item_id='$menu_item_id'";
-                $old_image_result = $conn->query($old_image_query);
-                if ($old_image_result && $old_image_result->num_rows > 0) {
-                    $old_image = $old_image_result->fetch_assoc()['image'];
-                    if ($old_image != 'default.jpg' && file_exists($target_dir . $old_image)) {
-                        unlink($target_dir . $old_image);
-                    }
-                }
             }
         }
 
@@ -91,19 +89,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Delete menu item
     elseif (isset($_POST['delete_menu_item'])) {
         $menu_item_id = $_POST['menu_item_id'];
-
-        // Get image name to delete it from server
-        $image_query = "SELECT image FROM menu WHERE menu_item_id='$menu_item_id'";
-        $image_result = $conn->query($image_query);
-        if ($image_result && $image_result->num_rows > 0) {
-            $image = $image_result->fetch_assoc()['image'];
-            if ($image != 'default.jpg') {
-                $target_dir = "../Images/menu/";
-                if (file_exists($target_dir . $image)) {
-                    unlink($target_dir . $image);
-                }
-            }
-        }
 
         $query = "DELETE FROM menu WHERE menu_item_id='$menu_item_id'";
 
@@ -141,7 +126,6 @@ if (isset($_GET['edit'])) {
     <title>Manage Menu - Admin Panel</title>
     <link rel="stylesheet" href="../CSS/menu_customer.css">
     <link rel="stylesheet" href="../CSS/navbar.css">
-    <link rel="stylesheet" href="../CSS/footer_user.css">
     <link rel="stylesheet" href="../CSS/manage_menu.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -151,7 +135,7 @@ if (isset($_GET['edit'])) {
     </header>
 
     <main>
-        <div class="admin-container">
+        <div class="admin-menu-container">
             <div class="admin-header">
                 <h1>Menu Management</h1>
                 <a href="../Admin/admin_dashboard.php" class="back-btn">
@@ -168,7 +152,7 @@ if (isset($_GET['edit'])) {
             <?php endif; ?>
 
             <!-- Add/Edit Menu Item Form -->
-            <div class="admin-card">
+            <div class="admin-menu">
                 <h2><?php echo $edit_mode ? 'Edit Menu Item' : 'Add New Menu Item'; ?></h2>
                 <form method="POST" action="" enctype="multipart/form-data">
                     <?php if ($edit_mode): ?>
@@ -177,7 +161,7 @@ if (isset($_GET['edit'])) {
                     
                     <div class="form-group">
                         <label for="name">Item Name</label>
-                        <input type="text" id="name" name="name" value="<?php echo $edit_mode ? htmlspecialchars($edit_item['name']) : ''; ?>" required>
+                        <input type="text" id="name" name="name" value="<?php echo $edit_mode ? $edit_item['name'] : ''; ?>" required>
                     </div>
                     
                     <div class="form-group">
@@ -187,7 +171,7 @@ if (isset($_GET['edit'])) {
                     
                     <div class="form-group">
                         <label for="description">Description</label>
-                        <textarea id="description" name="description"><?php echo $edit_mode ? htmlspecialchars($edit_item['description']) : ''; ?></textarea>
+                        <textarea id="description" name="description"><?php echo $edit_mode ? $edit_item['description'] : ''; ?></textarea>
                     </div>
                     
                     <div class="form-group">
@@ -206,13 +190,6 @@ if (isset($_GET['edit'])) {
                     <div class="form-group">
                         <label for="menu_image">Item Image</label>
                         <input type="file" id="menu_image" name="menu_image" accept="image/*">
-                        <div class="image-preview" id="imagePreview">
-                            <?php if ($edit_mode && $edit_item['image'] && $edit_item['image'] != 'default.jpg'): ?>
-                                <img src="../Images/menu/<?php echo $edit_item['image']; ?>" alt="Current image">
-                            <?php else: ?>
-                                <span>Image Preview</span>
-                            <?php endif; ?>
-                        </div>
                     </div>
                     
                     <?php if ($edit_mode): ?>
@@ -225,7 +202,7 @@ if (isset($_GET['edit'])) {
             </div>
 
             <!-- Current Menu Items -->
-            <div class="admin-card">
+            <div class="admin-menu">
                 <h2>Current Menu Items</h2>
                 
                 <?php if ($menu_result->num_rows > 0): ?>
@@ -233,18 +210,18 @@ if (isset($_GET['edit'])) {
                         <?php while ($item = $menu_result->fetch_assoc()): ?>
                             <div class="menu-item-card">
                                 <?php if ($item['image'] && $item['image'] != 'default.jpg'): ?>
-                                    <img src="../Images/menu/<?php echo $item['image']; ?>" alt="<?php echo htmlspecialchars($item['name']); ?>" class="menu-item-image" onerror="this.style.display='none'">
+                                    <img src="../Images/menu/<?php echo $item['image']; ?>" alt="<?php echo $item['name']; ?>" class="menu-item-image" onerror="this.style.display='none'">
                                 <?php endif; ?>
                                 
                                 <div class="menu-item-header">
-                                    <div class="menu-item-name"><?php echo htmlspecialchars($item['name']); ?></div>
+                                    <div class="menu-item-name"><?php echo $item['name']; ?></div>
                                     <div class="menu-item-price">৳<?php echo number_format($item['price'], 2); ?></div>
                                 </div>
                                 
                                 <div class="menu-item-category"><?php echo ucfirst(str_replace('_', ' ', $item['category'])); ?></div>
                                 
                                 <?php if (!empty($item['description'])): ?>
-                                    <div class="menu-item-description"><?php echo htmlspecialchars($item['description']); ?></div>
+                                    <div class="menu-item-description"><?php echo $item['description']; ?></div>
                                 <?php endif; ?>
                                 
                                 <div class="menu-item-actions">
@@ -270,37 +247,5 @@ if (isset($_GET['edit'])) {
         </div>
     </main>
 
-    <footer>
-        <?php include '../Includes/footers/Footer_user.php'; ?>
-    </footer>
-
-    <script>
-        // Image preview functionality
-        const menuImageInput = document.getElementById('menu_image');
-        const imagePreview = document.getElementById('imagePreview');
-        
-        menuImageInput.addEventListener('change', function() {
-            const file = this.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.addEventListener('load', function() {
-                    imagePreview.innerHTML = '';
-                    const img = document.createElement('img');
-                    img.src = reader.result;
-                    imagePreview.appendChild(img);
-                });
-                reader.readAsDataURL(file);
-            }
-        });
-        
-        // Scroll to form when in edit mode
-        <?php if ($edit_mode): ?>
-            document.addEventListener('DOMContentLoaded', function() {
-                document.querySelector('.admin-card form').scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        <?php endif; ?>
-    </script>
 </body>
 </html>

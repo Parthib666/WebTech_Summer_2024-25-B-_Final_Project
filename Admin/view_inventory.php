@@ -12,9 +12,9 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['add_inventory_item'])) {
         // Add new inventory item
-        $name = $conn->real_escape_string($_POST['name']);
-        $available = $conn->real_escape_string($_POST['available']);
-        $unit = $conn->real_escape_string($_POST['unit']);
+            $name = $_POST['name'];
+            $available = $_POST['available'];
+            $unit = $_POST['unit'];
         
         $query = "INSERT INTO inventory (name, available, unit) 
                  VALUES ('$name', '$available', '$unit')";
@@ -26,10 +26,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     } elseif (isset($_POST['update_inventory_item'])) {
         // Update inventory item
-        $inventory_id = $conn->real_escape_string($_POST['inventory_id']);
-        $name = $conn->real_escape_string($_POST['name']);
-        $available = $conn->real_escape_string($_POST['available']);
-        $unit = $conn->real_escape_string($_POST['unit']);
+        $inventory_id = $_POST['inventory_id'];
+        $name = $_POST['name'];
+        $available = $_POST['available'];
+        $unit = $_POST['unit'];
         
         $query = "UPDATE inventory SET 
                  name='$name', available='$available', unit='$unit'
@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     } elseif (isset($_POST['delete_inventory_item'])) {
         // Delete inventory item
-        $inventory_id = $conn->real_escape_string($_POST['inventory_id']);
+        $inventory_id = $_POST['inventory_id'];
         
         $query = "DELETE FROM inventory WHERE inventory_id='$inventory_id'";
         
@@ -66,207 +66,12 @@ $inventory_result = $conn->query($inventory_query);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Inventory - Admin Panel</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: #f5f5f5;
-            color: #333333;
-        }
-        
-        .admin-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        .admin-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            padding: 20px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-        
-        .admin-header h1 {
-            color: #2c3e50;
-        }
-        
-        .back-btn {
-            background: #0d111d;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 4px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .back-btn:hover {
-            background: #2c3e50;
-        }
-        
-        .admin-card {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            margin-bottom: 30px;
-        }
-        
-        .admin-card h2 {
-            color: #2c3e50;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .form-group {
-            margin-bottom: 15px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 500;
-            color: #2c3e50;
-        }
-        
-        .form-group input, 
-        .form-group select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 14px;
-        }
-        
-        .btn {
-            background: #0d111d;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-        
-        .btn:hover {
-            background: #2c3e50;
-        }
-        
-        .btn-danger {
-            background: #dc3545;
-        }
-        
-        .btn-danger:hover {
-            background: #c82333;
-        }
-        
-        .inventory-items-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-        
-        .inventory-item-card {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            padding: 15px;
-            position: relative;
-        }
-        
-        .inventory-item-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 10px;
-        }
-        
-        .inventory-item-name {
-            font-size: 18px;
-            font-weight: 600;
-            color: #2c3e50;
-        }
-        
-        .inventory-item-stock {
-            font-size: 16px;
-            font-weight: 700;
-            color: #28a745;
-        }
-        
-        .inventory-item-unit {
-            display: inline-block;
-            padding: 4px 8px;
-            background: #f8f9fa;
-            border-radius: 4px;
-            font-size: 12px;
-            color: #6c757d;
-            margin-bottom: 10px;
-        }
-        
-        .inventory-item-actions {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .action-btn {
-            padding: 5px 10px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 12px;
-        }
-        
-        .edit-btn {
-            background: #3498db;
-            color: white;
-        }
-        
-        .delete-btn {
-            background: #dc3545;
-            color: white;
-        }
-        
-        .alert {
-            padding: 15px;
-            border-radius: 4px;
-            margin-bottom: 20px;
-        }
-        
-        .alert-success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-        
-        .alert-error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-        
-        .stock-warning {
-            color: #dc3545;
-            font-weight: 500;
-        }
-    </style>
+    <link rel="stylesheet" href="../CSS/view_inventory.css">
 </head>
 <body>
-    <div class="admin-container">
-        <div class="admin-header">
-            <h1><i class="fas fa-boxes"></i> Inventory Management</h1>
+    <div class="inventory-container">
+        <div class="inventory-header">
+            <h1>Inventory Management</h1>
             <a href="../Admin/admin_dashboard.php" class="back-btn">
                 <i class="fas fa-arrow-left"></i> Back to Dashboard
             </a>
@@ -281,7 +86,7 @@ $inventory_result = $conn->query($inventory_query);
         <?php endif; ?>
 
         <!-- Add New Inventory Item Form -->
-        <div class="admin-card">
+        <div class="add-inventory-card">
             <h2>Add New Inventory Item</h2>
             <form method="POST" action="">
                 <div class="form-group">
@@ -314,7 +119,7 @@ $inventory_result = $conn->query($inventory_query);
         </div>
 
         <!-- Current Inventory Items -->
-        <div class="admin-card">
+        <div class="add-inventory-card">
             <h2>Current Inventory Items</h2>
             
             <?php if ($inventory_result->num_rows > 0): ?>
@@ -322,11 +127,10 @@ $inventory_result = $conn->query($inventory_query);
                     <?php while ($item = $inventory_result->fetch_assoc()): ?>
                         <div class="inventory-item-card">
                             <div class="inventory-item-header">
-                                <div class="inventory-item-name"><?php echo htmlspecialchars($item['name']); ?></div>
-                                <div class="inventory-item-stock"><?php echo $item['available']; ?></div>
+                                <div class="inventory-item-name"><?php echo $item['name']; ?></div>
+                                <div class="inventory-item-stock"><?php echo $item['available']; ?> 
+                                <span><?php echo ucfirst($item['unit']); ?></span></div>
                             </div>
-                            
-                            <div class="inventory-item-unit"><?php echo ucfirst($item['unit']); ?></div>
                             
                             <?php if ($item['available'] < 10): ?>
                                 <div class="stock-warning">Low stock! Please restock.</div>
@@ -336,7 +140,7 @@ $inventory_result = $conn->query($inventory_query);
                                 <!-- Edit Form -->
                                 <form method="POST" action="" style="display: inline;">
                                     <input type="hidden" name="inventory_id" value="<?php echo $item['inventory_id']; ?>">
-                                    <input type="hidden" name="name" value="<?php echo htmlspecialchars($item['name']); ?>">
+                                    <input type="hidden" name="name" value="<?php echo $item['name']; ?>">
                                     <input type="hidden" name="available" value="<?php echo $item['available']; ?>">
                                     <input type="hidden" name="unit" value="<?php echo $item['unit']; ?>">
                                     <button type="submit" name="update_inventory_item" class="action-btn edit-btn">Edit</button>
@@ -376,10 +180,6 @@ $inventory_result = $conn->query($inventory_query);
                             document.getElementById('available').value = available;
                             document.getElementById('unit').value = unit;
                             
-                            // Scroll to the add form
-                            document.querySelector('.admin-card').scrollIntoView({
-                                behavior: 'smooth'
-                            });
                             
                             e.preventDefault();
                         }

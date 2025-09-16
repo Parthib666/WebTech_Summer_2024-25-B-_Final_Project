@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             foreach ($items as $item) {
                 echo '<div class="menu-card">';
                 if (!empty($item['image'])) {
-                    echo '<img src="../Images/menu_img/' . htmlspecialchars($item['image']).".webp" . '" alt="' . htmlspecialchars($item['name']) . '">';
+                    echo '<img src="../Images/menu/' . $item['image'] . '" alt="' . $item['name'] . '">';
                 }
                 echo '<h3>' . htmlspecialchars($item['name']) . '</h3>';
                 echo '<p>' . htmlspecialchars($item['description']) . '</p>';

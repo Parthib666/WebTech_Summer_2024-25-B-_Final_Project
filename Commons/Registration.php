@@ -91,9 +91,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($checkEmailResult && $checkEmailResult->num_rows > 0) {
       $emailErr = "This email is already registered";
     } else {
-      // Hash the password
-      // $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-      // Insert into database
       $insertSql = "INSERT INTO users (username, email, password, phone, address, role) VALUES ('$username', '$email', '$password', '$phone', '$address', 'customer')";
       if ($conn->query($insertSql) === TRUE) {
         $registrationSuccess = true;
@@ -106,13 +103,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
 }
 
-// Helper function to clean input data
-function cleanInput($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
 ?>
 
 
@@ -135,38 +125,32 @@ function cleanInput($data) {
     <form action="Registration.php" method="post">
 
       <div class="input-field">
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" placeholder=" " value="<?php echo htmlspecialchars($username); ?>">
+  <input type="text" id="username" name="username" placeholder="Username" value="<?php echo $username; ?>">
         <span class="error"><?php if($showErrors) echo $usernameErr; ?></span>
       </div>
 
       <div class="input-field">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" placeholder=" " value="<?php echo htmlspecialchars($email); ?>">
+  <input type="email" id="email" name="email" placeholder="Email" value="<?php echo $email; ?>">
         <span class="error"><?php if($showErrors) echo $emailErr; ?></span>
       </div>
 
       <div class="input-field">
-        <label for="phone">Phone Number</label>
-        <input type="text" id="phone" name="phone" placeholder=" " pattern="[0-9]{10}" maxlength="10">
+        <input type="text" id="phone" name="phone" placeholder="Phone Number" pattern="[0-9]{10}" maxlength="10">
         <span class="error"><?php if($showErrors) echo $phoneErr; ?></span>
       </div>
 
       <div class="input-field">
-        <label for="address">Address</label>
-        <input type="text" id="address" name="address" placeholder=" ">
+  <input type="text" id="address" name="address" placeholder="Address" value="<?php echo $address; ?>">
         <span class="error"><?php if($showErrors) echo $addressErr; ?></span>
       </div>
 
       <div class="input-field">
-         <label for="password">Password</label>
-        <input type="password" id="password" name="password" placeholder=" ">
+        <input type="password" id="password" name="password" placeholder="Password">
         <span class="error"><?php if($showErrors) echo $passwordErr; ?></span>
       </div>
 
       <div class="input-field">
-        <label for="confirmPassword">Confirm Password</label>
-        <input type="password" id="confirmPassword" name="confirmPassword" placeholder=" ">
+        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password">
         <span class="error"><?php if($showErrors) echo $confirmPasswordErr; ?></span>
       </div>
 

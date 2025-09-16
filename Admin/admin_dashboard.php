@@ -71,7 +71,7 @@ $totalCustomers = $customersResult->fetch_assoc()['customer_count'];
                 <li><a href="../Admin/manage_menu.php"><span class="icon"><i class="fas fa-pen"></i></span> Manage Menu</a></li>
                 <li><a href="../Admin/view_customer.php"><span class="icon"><i class="fas fa-user"></i></span> View Customers</a></li>
                 <li><a href="../Admin/view_inventory.php"><span class="icon"><i class="fas fa-cart-plus"></i></span> View Inventory</a></li>
-                <li><a href="#"><span class="icon"><i class="fas fa-cog"></i></span> Settings</a></li>
+                <li><a href="../Customer/logout.php"><span class="icon"><i class="fas fa-sign-out"></i></span> Log Out</a></li>
             </ul>
         </div>
 
@@ -91,56 +91,52 @@ $totalCustomers = $customersResult->fetch_assoc()['customer_count'];
                 <div class="box">
                     <div class="box-header">
                         <h3>Total Orders</h3>
-                        <span class="icon"><i class="fas fa-box"></i></span>
                     </div>
                     <div class="data">
                         <div class="data-value"><?php echo $totalOrders; ?></div>
                     </div>
-                    <div class="data-label">Total orders placed</div>
+       
                 </div>
                 
                 <div class="box">
                     <div class="box-header">
                         <h3>Completed Orders</h3>
-                        <span class="icon"><i class="fas fa-check-circle"></i></span>
                     </div>
                     <div class="data">
                         <div class="data-value"><?php echo $completedOrders; ?></div>
                     </div>
-                    <div class="data-label">Completed orders</div>
                 </div>
                 
                 <div class="box">
                     <div class="box-header">
                         <h3>Pending Orders</h3>
-                        <span class="icon"><i class="fas fa-hourglass-half"></i></span>
+  
                     </div>
                     <div class="data">
                         <div class="data-value"><?php echo $pendingOrders; ?></div>
                     </div>
-                    <div class="data-label">Orders in progress</div>
+    
                 </div>
                 
                 <div class="box">
                     <div class="box-header">
                         <h3>Total Revenue</h3>
-                        <span class="icon"><i class="fas fa-money-bill-wave"></i></span>
+              
                     </div>
                     <div class="data">
                         <div class="data-value"><?php echo $totalRevenue; ?> BDT</div>
                     </div>
-                    <div class="data-label">Total revenue generated</div>
+     
                 </div>
 
                 <div class="box">
                     <div class="box-header">
                         <h3>Total Customers</h3>
-                        <span class="icon"><i class="fas fa-users"></i></span>
+           
                     </div>
                     <div class="data">
                         <div class="data-value"><?php echo $totalCustomers; ?></div>
                     </div>
-                    <div class="data-label">Total customer accounts</div>
                 </div>
             </div>
             
@@ -204,35 +200,31 @@ $totalCustomers = $customersResult->fetch_assoc()['customer_count'];
                 <div class="box">
                     <div class="box-header">
                         <h3>Menu Management</h3>
-                        <span class="icon"><i class="fas fa-utensils"></i></span>
                     </div>
-                    <p>Update menu items and pricing</p>
                       <a href="../Admin/manage_menu.php" class="btn">
-                        <i class="fas fa-pen"></i>Manage Menu
+                        Manage Menu
                     </a>
                 </div>
 
                 <div class="box">
                     <div class="box-header">
                         <h3>Customer Management</h3>
-                        <span class="icon"><i class="fas fa-users"></i></span>
+
                     </div>
-                    <p>View and manage customer details</p>
                     <a href="../Admin/view_customer.php" class="btn">
-                        <i class="fas fa-eye"></i>View Customers
+                        View Customers
                     </a>
                 </div>
 
                 <div class="box">
                     <div class="box-header">
                         <h3>Inventory Management</h3>
-                        <span class="icon"><i class="fas fa-clipboard-list"></i></span>
                     </div>
-                    <p>View and manage inventory details</p>
                     <a href="../Admin/view_inventory.php" class="btn">
-                        <i class="fas fa-eye"></i>View Inventory
+                      View Inventory
                     </a>
                 </div>
+            </div>
         </div>
     </div>
 
