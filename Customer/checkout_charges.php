@@ -55,10 +55,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $total_price = $subtotal_after_discount + $service_charge + $delivery_charge;
     $items_str = implode('<br>', $item_details);
     
-    echo number_format($discount, 2) . '|' . 
-         number_format($service_charge, 2) . '|' . 
-         number_format($delivery_charge, 2) . '|' . 
-         number_format($total_price, 2) . '|' . 
+    echo $discount . '|' . 
+         $service_charge . '|' . 
+         $delivery_charge . '|' . 
+         $total_price . '|' . 
          $items_str;
     
     exit;

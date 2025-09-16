@@ -37,9 +37,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $_SESSION['phone'] = $user['phone'];
 
       if ($user['role'] === 'admin') {
-        header("Location: testDashboard.php");
+        header("Location: ../Admin/admin_dashboard.php");
       } elseif ($user["role"] === "staff") {
-        header("Location: staff_dashboard.php");
+        header("Location: ../Staff/staff_dashboard.php");
       } else {
         header('Location: ../Customer/dashboard_customer.php');
       }

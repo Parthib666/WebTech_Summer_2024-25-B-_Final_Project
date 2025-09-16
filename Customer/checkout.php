@@ -38,8 +38,8 @@ if (isset($_POST['place_order'])) {
     
     // Apply promo code if exists
     if (!empty($promo_code)) {
-        $promo_sql = "SELECT * FROM promotion WHERE coupon_name = ? AND is_active = 1";
-        $promo_stmt = $conn->prepare($promo_sql);
+        $sql = "SELECT * FROM promotion WHERE coupon_name = ? AND is_active = 1";
+        $promo_stmt = $conn->prepare($sql);
         $promo_stmt->bind_param('s', $promo_code);
         $promo_stmt->execute();
         $promo_result = $promo_stmt->get_result();
@@ -107,116 +107,8 @@ if (isset($_POST['place_order'])) {
     <link rel="stylesheet" href="../CSS/menu_customer.css">
     <link rel="stylesheet" href="../CSS/navbar.css">
     <link rel="stylesheet" href="../CSS/footer_user.css">
+    <link rel="stylesheet" href="../CSS/checkout.css">
     <script src="https://kit.fontawesome.com/31caec7e2c.js" crossorigin="anonymous"></script>
-    <style>
-        /* Checkout Container */
-        .checkout-container {
-            max-width: 600px;
-            margin: 2rem auto;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            padding: 2rem;
-        }
-
-        /* Checkout Form */
-        .checkout-form {
-            margin-top: 2rem;
-        }
-
-        .checkout-form input,
-        .checkout-form textarea,
-        .checkout-form select {
-            width: 100%;
-            margin-bottom: 1rem;
-            padding: 0.5rem;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-            font-family: inherit;
-            font-size: 1rem;
-        }
-
-        .checkout-btn {
-            padding: 0.75rem 2rem;
-            background: #0d111d;
-            color: #fff;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: background-color 0.3s ease;
-        }
-
-        .checkout-btn:hover {
-            background: #1a243d;
-        }
-
-        /* Order Success Message */
-        .order-success {
-            color: #28a745;
-            font-weight: bold;
-            margin-bottom: 1rem;
-            text-align: center;
-            padding: 1rem;
-            background: #f8fff8;
-            border: 1px solid #28a745;
-            border-radius: 4px;
-        }
-
-        /* Order Summary */
-        #cart-list {
-            list-style-type: none;
-            padding: 0;
-            margin: 0 0 1.5rem 0;
-        }
-
-        #cart-list li {
-            padding: 0.5rem 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        /* Price Summary */
-        .checkout-container>div:has(strong) {
-            margin: 1.5rem 0;
-            padding: 1rem;
-            background: #f8f8f8;
-            border-radius: 6px;
-            line-height: 1.8;
-        }
-
-        .checkout-container>div:has(strong) select {
-            width: auto;
-            margin-left: 0.5rem;
-        }
-
-        .checkout-container>div:has(strong) input[type="text"] {
-            width: 120px;
-            display: inline-block;
-            margin-bottom: 0;
-        }
-
-        .checkout-container>div:has(strong) button {
-            padding: 0.25rem 0.75rem;
-            background: #0d111d;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .checkout-container>div:has(strong) button:hover {
-            background: #1a243d;
-        }
-        
-        /* Cart items display */
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
-        }
-    </style>
 </head>
 
 <body>
@@ -268,7 +160,6 @@ if (isset($_POST['place_order'])) {
                         </select><br>
                         <label><strong>Promo Code:</strong></label>
                         <input type="text" id="promo_code" name="promo_code" style="width:120px;" oninput="updateCharges()">
-                        <button type="button" onclick="updateCharges()">Apply</button><br>
                         <label><strong>Discount:</strong></label>
                         <span id="discount">BDT 0</span><br>
                         <label><strong>Service Charge:</strong></label>
@@ -303,7 +194,7 @@ if (isset($_POST['place_order'])) {
             
             cartItems.forEach(function(item) {
                 var priceText = item.querySelector('span[id^="item-price"]').textContent;
-                // Remove 'BDT ', commas, and any extra characters
+                // Remove any extra characters
                 var price = parseFloat(priceText.replace(/[^\d.]/g, ''));
                 console.log(price);
                 subtotal += price;
@@ -314,7 +205,7 @@ if (isset($_POST['place_order'])) {
             // Calculate discount
             var discount = 0;
             if (promoCode !== '') {
-                // Make AJAX call to validate promo code and get discount
+                // validate promo code and get discount
                 var xhr = new XMLHttpRequest();
                 xhr.open('POST', 'checkout_charges.php', true);
                 xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');

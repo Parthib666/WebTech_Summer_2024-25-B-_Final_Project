@@ -4,27 +4,27 @@ require_once '../Config/db_connection.php';
 
 // Check if user is logged in and is admin
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
-    header("Location: Login_Page.php");
+    header("Location: ../Commons/Login_Page.php");
     exit();
 }
 
 // Total orders count
-$totalOrdersQuery = "SELECT COUNT(*) as order_count FROM `order`";
+$totalOrdersQuery = "SELECT COUNT(*) as order_count FROM `orders`";
 $totalOrdersResult = $conn->query($totalOrdersQuery);
 $totalOrders = $totalOrdersResult->fetch_assoc()['order_count'];
 
 // Completed orders count
-$completedOrdersQuery = "SELECT COUNT(*) as completed_count FROM `order` WHERE status = 'completed'";
+$completedOrdersQuery = "SELECT COUNT(*) as completed_count FROM `orders` WHERE status = 'completed'";
 $completedOrdersResult = $conn->query($completedOrdersQuery);
 $completedOrders = $completedOrdersResult->fetch_assoc()['completed_count'];
 
 // Pending orders count
-$pendingOrdersQuery = "SELECT COUNT(*) as pending_count FROM `order` WHERE status = 'pending'";
+$pendingOrdersQuery = "SELECT COUNT(*) as pending_count FROM `orders` WHERE status = 'pending'";
 $pendingOrdersResult = $conn->query($pendingOrdersQuery);
 $pendingOrders = $pendingOrdersResult->fetch_assoc()['pending_count'];
 
 // Total revenue from completed orders
-$revenueQuery = "SELECT SUM(total) as total_revenue FROM `order` WHERE status = 'completed'";
+$revenueQuery = "SELECT SUM(total) as total_revenue FROM `orders` WHERE status = 'completed'";
 $revenueResult = $conn->query($revenueQuery);
 $totalRevenue = $revenueResult->fetch_assoc()['total_revenue'] ?? 0;
 
@@ -33,7 +33,7 @@ $recentOrdersQuery = "SELECT o.order_id, u.username as customer,
                      o.total as amount, o.status, o.order_type,
                      o.subTotal, o.discount, o.service_charge, o.delivery_charge,
                      o.paid, o.user_id
-                     FROM `order` o
+                     FROM `orders` o
                      JOIN users u ON o.user_id = u.user_id
                      ORDER BY o.order_id DESC 
                      LIMIT 5";
