@@ -1,14 +1,32 @@
-.success-msg {
-    color: #2e7d32;
-    background-color: #e3f9e5;
-    border: 1px solid #c8e6c9;
-    font-size: 1rem;
-    margin: 10px 0;
-    padding: 12px;
-    border-radius: 6px;
-    display: block;
+
+
+body {
+    background: #e8f0f8;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-/* Form header styles */
+
+.wrapper {
+    width: 100%;
+    max-width: 420px;
+    margin: 32px auto;
+    background: #fff;
+    padding: 40px 32px 32px 32px;
+    border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(44, 62, 80, 0.12);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
 .form-header {
     width: 100%;
     padding-bottom: 18px;
@@ -25,96 +43,24 @@
     letter-spacing: 1px;
 }
 
-body {
-    background: linear-gradient(135deg, #e3f0ff 0%, #f8faff 100%);
-    font-family: 'Segoe UI', Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.wrapper {
-    width: 100%;
-    max-width: 420px;
-    margin: 32px auto;
-    background: #fff;
-    padding: 40px 32px 32px 32px;
-    border-radius: 18px;
-    box-shadow: 0 8px 32px rgba(44, 62, 80, 0.12);
-    border: none;
-    transition: box-shadow 0.3s;
-}
-.wrapper:hover {
-    box-shadow: 0 12px 36px rgba(44, 62, 80, 0.18);
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
-}
-
-
-/* label {
-    font-size: 1rem;
-    color: #2587d2;
-    font-weight: 500;
-    margin-bottom: 0;
-    letter-spacing: 1px;
-} */
-
-
 .input-field {
     position: relative;
     width: 100%;
-    height: 56px;
-    margin-bottom: 0;
+    height: 52px;
+    margin-bottom: 1px;
 }
 
 .input-field input {
     width: 100%;
-    height: 100%;
-    font-size: 1.1rem;
-    padding: 18px 14px 0 14px;
+    height: 90%;
+    font-size: 1rem;
+    padding: 16px 14px 10px 14px;
     border: 1.5px solid #cfd8dc;
     border-radius: 8px;
     background: #f8faff;
-    transition: border-color 0.3s, box-shadow 0.3s;
     outline: none;
     box-sizing: border-box;
 }
-
-.input-field input:focus {
-    border-color: #2587d2;
-    box-shadow: 0 2px 8px rgba(37, 135, 210, 0.08);
-}
-
-.input-field label {
-    position: absolute;
-    left: 16px;
-    top: 18px;
-    background: transparent;
-    color: #7b8ca7;
-    font-size: 1rem;
-    pointer-events: none;
-    transition: 0.2s ease all;
-    padding: 0 4px;
-}
-
-.input-field input:focus + label,
-.input-field input:not(:placeholder-shown) + label {
-    top: -10px;
-    left: 12px;
-    font-size: 0.85rem;
-    color: #2587d2;
-    background: #fff;
-    padding: 0 6px;
-}
-
-
 
 
 .checkbox-container {
@@ -151,21 +97,18 @@ form {
 button {
     width: 100%;
     height: 48px;
-    background: linear-gradient(90deg, #2587d2 0%, #4fc3f7 100%);
-    font-weight: 700;
+    background: #1976d2;
+    font-weight: 500;
     color: #fff;
     border: none;
     border-radius: 8px;
     font-size: 1.1rem;
     cursor: pointer;
     margin: 18px 0 0 0;
-    box-shadow: 0 2px 8px rgba(37, 135, 210, 0.08);
-    transition: background 0.3s, box-shadow 0.3s;
 }
 
 button:hover {
-    background: linear-gradient(90deg, #1976d2 0%, #29b6f6 100%);
-    box-shadow: 0 6px 18px rgba(37, 135, 210, 0.18);
+    background: #2196f3;
 }
 .login{
   text-decoration: none;
@@ -186,7 +129,6 @@ button:hover {
 .login-link:hover {
     text-decoration: underline;
     color: #1976d2;
-    transform: scale(1.04);
 }
 
 .error {
@@ -197,42 +139,13 @@ button:hover {
       min-height: 18px;
     }
     
-    .success-message {
-      color: green;
-      background-color: #e8f5e9;
-      padding: 10px;
-      border-radius: 4px;
-      text-align: center;
-      margin-top: 15px;
-      border: 1px solid #c8e6c9;
-    }
-    
-    /* .form-header {
-      text-align: center;
-      margin-bottom: 25px;
-    }
-    .form-header h2 {
-      margin: 0;
-      font-size: 1.8rem;
-      color: #2587d2;
-      font-weight: 700;
-      letter-spacing: 1px;
-    } */
-/* @media (max-width: 600px) {
-    .wrapper {
-        max-width: 98vw;
-        padding: 18px 6vw 18px 6vw;
-    }
-    .wrapper h2 {
-        font-size: 1.3rem;
-        margin-bottom: 18px;
-    }
-    .input-field input {
-        font-size: 1rem;
-        padding: 14px 10px 0 10px;
-    }
-    button {
-        height: 44px;
-        font-size: 1rem;
-    }
-} */
+.success-msg {
+    color: #2e7d32;
+    background-color: #e3f9e5;
+    border: 1px solid #c8e6c9;
+    font-size: 1rem;
+    margin: 10px 0;
+    padding: 12px;
+    border-radius: 6px;
+    display: block;
+}
