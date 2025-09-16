@@ -120,6 +120,9 @@ $resultReservations = $conn->query($sqlReservations);
             width: 100%;
             border-collapse: collapse;
         }
+        tr{
+            border-bottom: 1px solid #41414173;
+        }
     </style>
 
 </head>
@@ -132,8 +135,8 @@ $resultReservations = $conn->query($sqlReservations);
                     <a href="staff_dashboard.php#orders-table" style="text-decoration: none; color: white;"><li>Manage Orders</li></a>
                     <a href="staff_dashboard.php#reservations-table" style="text-decoration: none; color: white;"><li>Manage Reservations</li></a>
                     <a href="../Admin/view_inventory.php" style="text-decoration: none; color: white;"><li>Manage Inventory</li></a>
-                    <a href="view_profile.php" style="text-decoration: none; color: white;"><li>View Profile</li></a>
-                    <a href="logout.php" style="text-decoration: none; color: white;"><li>Logout</li></a>
+                    <a href="../Customer/user_profile.php" style="text-decoration: none; color: white;"><li>View Profile</li></a>
+                    <a href="../Customer/logout.php" style="text-decoration: none; color: white;"><li>Logout</li></a>
                 </ul>
             </div>
             <div class="dashboard-content">
@@ -168,7 +171,7 @@ $resultReservations = $conn->query($sqlReservations);
                 </center>
                 <center><div class="orders-table" id="orders-table">
                     <h2 style="text-align: center; margin-top: 20px;">Recent Orders</h2>
-                    <table border="1">
+                    <table >
                             <tr>
                                 <th>Order ID</th>
                                 <th>Customer ID</th>
@@ -200,8 +203,7 @@ $resultReservations = $conn->query($sqlReservations);
 
                 <center><div class="orders-table" id="reservations-table">
                     <h2 style="text-align: center; margin-top: 20px;">Reservations</h2>
-                    <table border="1">
-                        <thead>
+                    <table >
                             <tr>
                                 <th>Reservation ID</th>
                                 <th>Customer ID</th>
@@ -211,8 +213,7 @@ $resultReservations = $conn->query($sqlReservations);
                                 <th>From</th>
                                 <th>To</th>
                             </tr>
-                        </thead>
-                        <tbody>
+                        <
                             <?php
                             if ($resultReservations->num_rows > 0) {
                                 while($row = $resultReservations->fetch_assoc()) {
@@ -231,7 +232,7 @@ $resultReservations = $conn->query($sqlReservations);
                                 echo "<tr><td colspan='5'>No recent reservations found.</td></tr>";
                             }
                             ?>
-                        </tbody>
+                        
                     </table>
                 </div></center>
 

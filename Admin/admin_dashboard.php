@@ -2,38 +2,13 @@
 session_start();
 require_once '../Config/db_connection.php';
 
-<<<<<<< HEAD
-// Check if user is logged in and is admin
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
-=======
 // checking if admin is logged in
 //if admin is not logged then session will not be set and user will be redirected to the login page.
 if(!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin'){
->>>>>>> e747384ad26d641bb74b4bfe3c75063f93d4006a
     header("Location: ../Commons/Login_Page.php");
     exit();
 }
 
-<<<<<<< HEAD
-// Total orders count
-$totalOrdersQuery = "SELECT COUNT(*) as order_count FROM `orders`";
-$totalOrdersResult = $conn->query($totalOrdersQuery);
-$totalOrders = $totalOrdersResult->fetch_assoc()['order_count'];
-
-// Completed orders count
-$completedOrdersQuery = "SELECT COUNT(*) as completed_count FROM `orders` WHERE status = 'completed'";
-$completedOrdersResult = $conn->query($completedOrdersQuery);
-$completedOrders = $completedOrdersResult->fetch_assoc()['completed_count'];
-
-// Pending orders count
-$pendingOrdersQuery = "SELECT COUNT(*) as pending_count FROM `orders` WHERE status = 'pending'";
-$pendingOrdersResult = $conn->query($pendingOrdersQuery);
-$pendingOrders = $pendingOrdersResult->fetch_assoc()['pending_count'];
-
-// Total revenue from completed orders
-$revenueQuery = "SELECT SUM(total) as total_revenue FROM `orders` WHERE status = 'completed'";
-$revenueResult = $conn->query($revenueQuery);
-=======
 // Counting Total Orders
 $totalOrderSql = "SELECT COUNT(*) as order_count FROM `orders`";    //query created
 $totalOrdersResult = $conn->query($totalOrderSql);                 // query executed
@@ -52,7 +27,6 @@ $pendingOrders = $pendingOrdersResult->fetch_assoc()['pending_count'];
 // Counting total revenue from the total completed orders. 
 $revenueSql = "SELECT SUM(total) as total_revenue FROM `orders` WHERE status = 'completed'";
 $revenueResult = $conn->query($revenueSql);
->>>>>>> e747384ad26d641bb74b4bfe3c75063f93d4006a
 $totalRevenue = $revenueResult->fetch_assoc()['total_revenue'] ?? 0;
 
 /// Fetching recent 5 orders with customer names

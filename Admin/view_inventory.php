@@ -3,8 +3,8 @@ session_start();
 require_once '../Config/db_connection.php';
 
 // Check if user is logged in and is admin
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
-    header("Location: Login_Page.php");
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] == 'customer') {
+    header("Location: ../Commons/Login_Page.php");
     exit();
 }
 
