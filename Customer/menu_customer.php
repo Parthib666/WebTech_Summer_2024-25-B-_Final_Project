@@ -8,6 +8,16 @@
 <body>
 <?php
 session_start();
+include("../Config/db_connection.php");
+// User is logged in, show the menu
+$sql = "SELECT * FROM menu ORDER BY category, name";
+$result = $conn->query($sql);
+$categories = [];
+while ($row = $result->fetch_assoc()) {
+    $categories[$row['category']][] = $row;
+
+}
+$conn->close();
 ?>
 <head>
     <meta charset="UTF-8">
@@ -24,46 +34,44 @@ session_start();
         <?php include '../Includes/navbars/Navbar_user.php'; ?>
     </header>
     <main>
-    <!-- Menu Container -->
-    <div id="menu" class="menu-container"></div>
-    <!-- Popup Notification -->
-    <div id="cart-popup" style="position:fixed;left:90%;top:4.5rem;transform:translateX(-50%);background:#00134bff;color:#fff;padding:1rem 2rem;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.15);font-size:1.1rem;z-index:2100;display:none;opacity:0;transition:opacity 0.5s;">Item added to cart!</div>
-    <!-- View Cart Button -->
-    <button id="view-cart-btn" onclick="window.location.href='view_cart.php'">View Cart</button>
-
+    <div id="menu" class="menu-container">
+         <?php
+                foreach ($categories as $category => $items) {
+                    echo '<div id="menu-item-category"><h2 style="width:100%;text-align:center;">' . strtoupper(htmlspecialchars($category)) . '</h2></div>';
+                    foreach ($items as $item) {
+                        echo '<div class="menu-card">';
+                        if (!empty($item['image'])) {
+                            echo '<img src="../Images/menu_img/' . htmlspecialchars($item['image']) . ".webp" . '" alt="' . htmlspecialchars($item['name']) . '">';
+                        }
+                        echo '<h3>' . htmlspecialchars($item['name']) . '</h3>';
+                        echo '<p>' . htmlspecialchars($item['description']) . '</p>';
+                        echo '<strong>BDT ' . htmlspecialchars($item['price']) . '</strong>';
+                        echo '<button class="add-to-cart" data-id="' . $item['menu_item_id'] . '" onclick="AddToCart(this)">Add to Cart</button>';
+                        echo '</div>';
+                    }
+                }
+                ?>
+    </div>
+    <div id="cart-popup" style="position:fixed;left:90%;top:4.5rem;transform:translateX(-50%);background:#00134bff;color:#fff;padding:1rem 2rem;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.15);font-size:1.1rem;z-index:2100;display:none;transition:opacity 0.5s;">
+        Item added to cart!
+    </div>
     <script>
-    // Load menu items dynamically
-    function loadMenu() {
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'menu_itms_customer.php', true);
-        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-        xhr.onload = function() {
-            if (xhr.status === 200) {
-                document.getElementById('menu').innerHTML = xhr.responseText;
-                attachAddToCartHandlers();
-            }
-        };
-        xhr.send('action=load');
-    }
-
     // Attach add to cart button handlers
-    function attachAddToCartHandlers() {
-        var buttons = document.querySelectorAll('.add-cart-btn');
-        buttons.forEach(function(btn) {
-            btn.onclick = function() {
-                var itemId = this.getAttribute('data-id');
+    function AddToCart(button) {
+                showCartPopup();
+                var id = button.getAttribute('data-id');
+                console.log(id);
                 var xhr = new XMLHttpRequest();
-                xhr.open('POST', 'menu_itms_customer.php', true);
-                xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-                xhr.onload = function() {
+                xhr.open('POST', 'menuToCart_ajax.php', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onreadystatechange = function() {
                     if (xhr.status === 200) {
-                        document.getElementById('view-cart-btn').style.display = 'block';
-                        showCartPopup();
+                        if (xhr.responseText.trim() === 'added') {
+                            showCartPopup();
+                        }
                     }
                 };
-                xhr.send('action=add&id=' + itemId);
-            };
-        });
+                xhr.send('action=add&id=' + encodeURIComponent(id));
     }
 
     function showCartPopup() {
@@ -79,9 +87,6 @@ session_start();
             }, 500);
         }, 3000);
     }
-
-    // Initial load
-    window.onload = loadMenu;
     </script>
     </main>
 

@@ -1,0 +1,107 @@
+Folder PATH listing
+Volume serial number is 44BF-5025
+C:.
+|   hierarchy.txt
+|   README.md
+|   
++---Admin
+|       admin_dashboard.php
+|       manage_menu.php
+|       testDashboard.php
+|       view_customer.php
+|       view_inventory.php
+|       view_order.php
+|       
++---Commons
+|       Change_Password.php
+|       Forgot_Password.php
+|       Login_Page.php
+|       Registration.php
+|       special_offers.php
+|       test.css
+|       test.php
+|       
++---Config
+|       db_connection.php
+|       
++---CSS
+|       admin_dashboard.css
+|       checkout.css
+|       dashboard_user.css
+|       footer_user.css
+|       login.css
+|       manage_menu.css
+|       manage_profile.css
+|       menu_customer.css
+|       navbar.css
+|       Registration.css
+|       view_customer.css
+|       view_inventory.css
+|       
++---Customer
+|       ajax_active_orders.php
+|       ajax_all_orders.php
+|       ajax_track_order.php
+|       booking.php
+|       checkout.php
+|       checkout_charges.php
+|       contacts.php
+|       dashboard_customer.php
+|       logout.php
+|       manage_profile.php
+|       menuToCart_ajax.php
+|       menu_customer.php
+|       menu_itms_customer.php
+|       order_history.php
+|       place_order.php
+|       Test.php
+|       track_order.php
+|       user_profile.php
+|       view_cart.php
+|       
++---Images
+|   |   chicken.jpeg
+|   |   Cooking-user-dash-item-1.webp
+|   |   Gallery-food-1.webp
+|   |   Gallery-food-2.webp
+|   |   Gallery-food-3.webp
+|   |   Gallery-food-4.webp
+|   |   Gallery-food-5.webp
+|   |   Gallery-food-6.webp
+|   |   Gallery-interior-1.webp
+|   |   Gallery-interior-2.webp
+|   |   Gallery-interior-3.webp
+|   |   Gallery-interior-4.webp
+|   |   Gallery-interior-5.webp
+|   |   Gallery-interior-6.webp
+|   |   user-dash-slider-1.webp
+|   |   user-dash-slider-2.webp
+|   |   user-dash-slider-3.webp
+|   |   Vision-user-dash.webp
+|   |   
+|   +---menu
+|   |       68c5a6e35e5a1.jpeg
+|   |       68c5a7008db98.jpeg
+|   |       68c957b3a131d.jpeg
+|   |       68c96103d05c2.png
+|   |       68c9636d5e4c9.webp
+|   |       68c96386b58b0.webp
+|   |       68c9bf7d010b3.webp
+|   |       
+|   \---menu_img
+|           1.webp
+|           2.webp
+|           3.webp
+|           
++---Includes
+|   +---footers
+|   |       Footer_user.php
+|   |       
+|   \---navbars
+|           Navbar_user.php
+|           
+\---Staff
+        manage_order.php
+        manage_reservation.php
+        staff_dashboard.php
+        

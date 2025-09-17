@@ -12,8 +12,8 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             <ul class="nav-menu">
                 <li><a href="../Customer/menu_customer.php" style="color: inherit; text-decoration: none;">Menu</a></li>
                 <li><a href="../Commons/special_offers.php" style="color: inherit; text-decoration: none;">Special Offers</a></li>
-                <li><a href="../Customer/contacts.php" style="color: inherit; text-decoration: none;">Contact Us</a></li>
-                <li><a href="../Customer/booking.php" style="color: inherit; text-decoration: none;">Book Table</a></li>
+                <li><a href="../Customer/dashboard_customer.php#booking" style="color: inherit; text-decoration: none;">Book Table</a></li>
+                <li><a href="../Customer/dashboard_customer.php#review" style="color: inherit; text-decoration: none;">Rate us</a></li>
             </ul>
             <div class="nav-user-options">
                 <a href="../Customer/view_cart.php" style="color: inherit; text-decoration: none;"><i class="fa-solid fa-cart-plus" style="scale: 1.3; padding: 5px;"></i></a>
