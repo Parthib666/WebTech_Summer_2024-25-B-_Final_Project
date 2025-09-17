@@ -183,7 +183,7 @@ $totalCustomers = $customersResult->fetch_assoc()['customer_count'];
                                     <td>" . number_format($order['amount'], 2) . " BDT</td>
                                     <td><span class='status $statusClass'>" . ucfirst($order['status']) . "</span></td>
                                     <td>" . ucfirst($order['order_type']) . "</td>
-                                    <td>" . number_format($order['paid'], 2) . " BDT</td>
+                                    <td>" . $order['paid'] . "</td>
                                 </tr>";
                             }
                         } else {
