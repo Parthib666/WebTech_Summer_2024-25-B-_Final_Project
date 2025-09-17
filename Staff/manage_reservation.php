@@ -119,24 +119,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <div class="details-container">
         <div class="sidebar">
-            <h2>Staff Panel</h2>
-            <ul class="sidebar-list">
-                <a href="staff_dashboard.php" style="text-decoration: none; color: white;">
-                    <li>Dashboard</li>
-                </a>
-                <a href="manage_orders.php" style="text-decoration: none; color: white;">
-                    <li>Manage Orders</li>
-                </a>
-                <a href="update_menu.php" style="text-decoration: none; color: white;">
-                    <li>Update Menu</li>
-                </a>
-                <a href="view_profile.php" style="text-decoration: none; color: white;">
-                    <li>View Profile</li>
-                </a>
-                <a href="logout.php" style="text-decoration: none; color: white;">
-                    <li>Logout</li>
-                </a>
-            </ul>
+                <h2>Staff Panel</h2>
+                <ul class="sidebar-list">
+                    <a href="staff_dashboard.php" style="text-decoration: none; color: white;"><li>Dashboard</li></a>
+                    <a href="staff_dashboard.php#orders-table" style="text-decoration: none; color: white;"><li>Manage Orders</li></a>
+                    <a href="staff_dashboard.php#reservations-table" style="text-decoration: none; color: white;"><li>Manage Reservations</li></a>
+                    <a href="../Admin/view_inventory.php" style="text-decoration: none; color: white;"><li>Manage Inventory</li></a>
+                    <a href="../Customer/user_profile.php" style="text-decoration: none; color: white;"><li>View Profile</li></a>
+                    <a href="../Customer/logout.php" style="text-decoration: none; color: white;"><li>Logout</li></a>
+                </ul>
         </div>
         <div class="order-details">
             <div class="order-form-container">

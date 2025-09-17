@@ -17,11 +17,11 @@ if ($result->num_rows > 0) {
 		echo '<div class="order-header">Order #' . htmlspecialchars($row['order_id']) . ' <span class="order-status">' . htmlspecialchars($row['status']) . '</span></div>';
 		echo '<div class="order-details">';
 		echo 'Type: ' . htmlspecialchars($row['order_type']) . '<br>';
-		echo 'Subtotal: ₹' . htmlspecialchars($row['subTotal']) . '<br>';
-		echo 'Discount: ₹' . htmlspecialchars($row['discount']) . '<br>';
-		echo 'Service Charge: ₹' . htmlspecialchars($row['service_charge']) . '<br>';
-		echo 'Delivery Charge: ₹' . htmlspecialchars($row['delivery_charge']) . '<br>';
-		echo '<strong>Total: ₹' . htmlspecialchars($row['total']) . '</strong><br>';
+		echo 'Subtotal: BDT ' . htmlspecialchars($row['subTotal']) . '<br>';
+		echo 'Discount: BDT ' . htmlspecialchars($row['discount']) . '<br>';
+		echo 'Service Charge: BDT ' . htmlspecialchars($row['service_charge']) . '<br>';
+		echo 'Delivery Charge: BDT ' . htmlspecialchars($row['delivery_charge']) . '<br>';
+		echo '<strong>Total: BDT ' . htmlspecialchars($row['total']) . '</strong><br>';
 		echo 'Paid: ' . ($row['paid'] == 1 ? 'Yes' : 'No') . '<br>';
 		echo 'Date: ' . htmlspecialchars($row['date']) . '<br>';
 		echo '</div>';

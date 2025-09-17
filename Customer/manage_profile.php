@@ -98,8 +98,7 @@ $conn->close();
                 </div>
 
                 <div class="form-group" style:>
-                    <div class="display-field"><button onclick="window.location.href='change_password.php'"
-                            style="color: #e74c3c; width: 100%; height: 100%;">
+                    <div class="display-field"><button type="button" onclick="window.location.href='../Commons/Change_Password.php'" style="color: #e74c3c; width: 100%; height: 100%;">
                             Change Password
                         </button>
                     </div>

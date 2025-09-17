@@ -36,9 +36,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forget Password</title>
+    <title>Change Password</title>
+    <link rel="stylesheet" href="../CSS/navbar.css">
+    <link rel="stylesheet" href="../CSS/footer_user.css">
     <style>
-        body {
+        main {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             display: flex;
@@ -90,8 +92,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
+    <header>
+    <?php include "../Includes/navbars/Navbar_user.php"; ?>
+    </header>
+    <main>
     <div class="forget-container">
-        <h2>Forget Password</h2>
+        <h2>Change Password</h2>
         <form method="POST">
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
@@ -102,6 +108,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <button type="submit">Reset Password</button>
         </form>
     </div>
+    </main>
+    <footer>
+    <?php include "../Includes/footers/Footer_user.php"; ?>
+    </footer>
 </body>
 
 </html>

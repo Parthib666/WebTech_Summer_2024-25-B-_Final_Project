@@ -213,7 +213,6 @@ $resultReservations = $conn->query($sqlReservations);
                                 <th>From</th>
                                 <th>To</th>
                             </tr>
-                        <
                             <?php
                             if ($resultReservations->num_rows > 0) {
                                 while($row = $resultReservations->fetch_assoc()) {
@@ -225,7 +224,7 @@ $resultReservations = $conn->query($sqlReservations);
                                             <td>" . $row['reservation_date'] . "</td>
                                             <td>" . $row['time_start'] . "</td>
                                             <td>" . $row['time_end'] . "</td>
-                                            <td><button class='btn btn-primary' onclick=\"location.href='manage_.php?id=" . $row['reservation_id'] . "'\">View</button></td>
+                                            <td><button class='btn btn-primary' onclick=\"location.href='manage_reservation.php?id=" . $row['reservation_id'] . "'\">View</button></td>
                                           </tr>";
                                 }
                             } else {

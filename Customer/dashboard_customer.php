@@ -1,6 +1,7 @@
 <?php
 session_start();
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+include "../Config/db_connection.php";
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit-booking"])) {
     if (!isset($_SESSION["user_id"])) {
         header("Location: ../Commons/Login_page.php");
     } else {
@@ -12,19 +13,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $timeEnd = $_POST["timeEnd"];
         $tables = $_POST["tables"];
         if (isset($_POST["date"]) && isset($_POST["timeStart"]) && isset($_POST["timeEnd"]) && isset($_POST["tables"])) {
-        include "../Config/db_connection.php";
         
         $sql = "INSERT INTO reservation (table_no, reservation_date, time_start, time_end,user_id) VALUES ($tables, '$date', '$timeStart', '$timeEnd', '$user_id')";
         $result = $conn->query($sql);
             echo "<script>alert('Booking successful!');</script>";
-            $conn->close();
+            
         }
         else {
             // Handle the case where not all fields are set
             echo "<script>alert('Please fill in all fields.');</script>";
         } 
     }
+}else if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit-review"])) {
+    $email = $_POST["email"];
+    $feedback = $_POST["feedback"];
+    $rating = $_POST["rating"];
+    $sql = "INSERT INTO review (email, star, feedback) VALUES ('$email', $rating, '$feedback')";
+    $conn->query($sql);
 }
+    $conn->close();
 ?>
 
 
@@ -44,99 +51,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <header>
         <?php include '../Includes/navbars/Navbar_user.php'; ?>
-
-        <body>
-            <div class="slider-container">
-                <div class="slider">
-                    <div class="slide">
-                        <img src="../Images/user-dash-slider-1.webp" alt="">
-                        <div class="slide-content" id="slide-content-1">
-                            <p>Kickstart your day with our signature skillet of farm-fresh eggs, colorful bell peppers,
-                                and garden-fresh herbs, perfectly cooked to awaken your taste buds.</p>
-                        </div>
-                    </div>
-                    <div class="slide">
-                        <img src="../Images/user-dash-slider-2.webp" alt="">
-                        <div class="slide-content" id="slide-content-2">
-                            <p>Indulge in our sizzling beef stir fry served over a bed of fluffy steamed rice, seasoned
-                                to perfection with vibrant peppers and a savory sauce that melts in your mouth.</p>
-                        </div>
-                    </div>
-                    <div class="slide">
-                        <img src="../Images/user-dash-slider-3.webp" alt="">
-                        <div class="slide-content" id="slide-content-3">
-                            <p>Experience the comforting warmth of our rich, slow-simmered soup made with fresh
-                                vegetables, hearty spices, and a touch of love in every spoonful.</p>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="navigation">
-                    <div class="nav-btn active"></div>
-                    <div class="nav-btn"></div>
-                    <div class="nav-btn"></div>
-                </div>
-
-            </div>
-
-            <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                    const slider = document.querySelector('.slider');
-                    const slides = document.querySelectorAll('.slide');
-                    const navBtns = document.querySelectorAll('.nav-btn');
-
-                    let currentSlide = 0;
-                    const slideCount = slides.length;
-                    let autoSlideInterval;
-
-                    function updateSlider() {
-                        slider.style.transform = `translateX(-${currentSlide * 25}%)`;
-
-                        // Update navigation buttons
-                        navBtns.forEach((btn, index) => {
-                            if (index === currentSlide) {
-                                btn.classList.add('active');
-                            } else {
-                                btn.classList.remove('active');
-                            }
-                        });
-                    }
-
-                    function nextSlide() {
-                        currentSlide = (currentSlide + 1) % slideCount;
-                        updateSlider();
-                    }
-
-                    function prevSlide() {
-                        currentSlide = (currentSlide - 1 + slideCount) % slideCount;
-                        updateSlider();
-                    }
-
-                    function startAutoSlide() {
-                        autoSlideInterval = setInterval(nextSlide, 3000);
-                    }
-
-                    function stopAutoSlide() {
-                        clearInterval(autoSlideInterval);
-                    }
-
-                    navBtns.forEach((btn, index) => {
-                        btn.addEventListener('click', () => {
-                            currentSlide = index;
-                            updateSlider();
-                            stopAutoSlide();
-                            startAutoSlide();
-                        });
-                    });
-
-                    const sliderContainer = document.querySelector('.slider-container');
-                    sliderContainer.addEventListener('mouseenter', stopAutoSlide);
-                    sliderContainer.addEventListener('mouseleave', startAutoSlide);
-
-                    startAutoSlide();
-                });
-            </script>
     </header>
     <main>
 
@@ -154,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         steak. Vegetarian and vegan guests can enjoy vibrant, seasonal plates such as aubergine or
                         broccoli tempura and roasted vegetable platters. Every dish is made with the freshest
                         ingredients and showcases the bold, natural flavours.</p>
-                    <center><button>View Menu</button></center>
+                    <center><button class="submit-button">View Menu</button></center>
                 </div>
             </div>
             <div class="dashboard-item">
@@ -202,7 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <input type="number" id="tables" name="tables" required>
                     </div>
 
-                    <input class="submit-button" type="submit" value="Book Now">
+                    <input class="submit-button" type="submit" value="submit-booking" name="submit-booking">
                 </form>
         </center>
 
@@ -259,6 +173,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </main>
     <footer>
+         <center>
+            <div class="booking-section" id="review">
+                <center>
+                    <h2>Leave a Review!</h2>
+                </center>
+                <form method="POST">
+                    <div>
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div>
+                        <label for="rating">Rate Us</label>
+                        <select name="rating" id="rating" style="width: 63%; padding: 8px; border: 1px solid #ccc; border-radius: 5px;">
+                            <option value="5">5 Stars</option>
+                            <option value="4">4 Stars</option>
+                            <option value="3">3 Stars</option>
+                            <option value="2">2 Stars</option>
+                            <option value="1">1 Star</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="feedback">Feedback:</label>
+                        <input type="text" id="feedback" name="feedback" style="min-height: 100px;">
+                    </div>
+
+
+                    <input class="submit-button" type="submit" value="submit-review" name="submit-review">
+                </form>
+        </center>
         <?php include '../Includes/footers/Footer_user.php'; ?>
     </footer>
 </body>
